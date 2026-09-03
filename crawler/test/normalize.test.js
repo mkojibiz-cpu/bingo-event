@@ -25,6 +25,7 @@ test("normalizeEvent: 日本語日付＋会場から1件を構成", () => {
       address: "広島県福山市霞町",
       sourceUrl: "https://example.jp/e/1",
       description: "  ばらのまち福山の市民祭。   ",
+      summary: "100万本のばら",
     },
     { today: TODAY }
   );
@@ -35,7 +36,9 @@ test("normalizeEvent: 日本語日付＋会場から1件を構成", () => {
   assert.equal(ev.featured, false);
   assert.equal(ev.crawledAt, "2026-09-03");
   assert.ok(ev.id.startsWith("20260516-"));
-  assert.equal(ev.description, "ばらのまち福山の市民祭。");
+  // 事実情報のみ：クロール由来の紹介文は取り込まない
+  assert.equal(ev.description, "");
+  assert.equal(ev.summary, "");
 });
 
 test("normalizeEvent: startDate(ISO)も受け付ける", () => {

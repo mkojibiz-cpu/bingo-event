@@ -26,8 +26,10 @@ function clip(s, n) {
  * 取得した raw を、サイト共通スキーマの1件に整える。
  * 日付が取れない / 対象エリア外 / 名称や出典が無い場合は null（=不採用）。
  *
- * 方針: 保存するのは「名称・日時・会場・エリア・出典＋短い要約」まで。
- *       本文の全文転載はしない（description も数文に圧縮）。
+ * 方針: クロールで取り込むのは「事実情報」だけ
+ *       — 名称・日時・会場・住所・時間・料金・主催・エリア・出典リンク。
+ *       紹介文・キャッチコピー・写真は取り込まない（著作権に配慮）。
+ *       summary / description は data/manual.json に自分の言葉で書いたときだけ入る。
  */
 export function normalizeEvent(raw, { areaHint = null, today = new Date() } = {}) {
   const name = clip(raw.name, 80);
@@ -63,8 +65,9 @@ export function normalizeEvent(raw, { areaHint = null, today = new Date() } = {}
     date,
     dateText,
     image: "",
-    summary: clip(raw.summary || raw.description, 120),
-    description: clip(raw.description || raw.summary, 220),
+    // 紹介文はクロールでは入れない（事実情報のみ）。manual.json で補える。
+    summary: "",
+    description: "",
     sourceUrl: raw.sourceUrl,
     crawledAt: ymd(today),
     featured: false,

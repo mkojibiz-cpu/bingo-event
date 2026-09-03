@@ -30,3 +30,25 @@ export async function isAllowed(url) {
   const verdict = cache.get(robotsUrl).isAllowed(url, USER_AGENT);
   return verdict !== false; // undefined（該当ルール無し）は許可
 }
+
+/** robots.txt の Crawl-delay（秒）をミリ秒で返す。無指定なら 0。 */
+export async function crawlDelayMs(url) {
+  let origin;
+  try {
+    origin = new URL(url).origin;
+  } catch {
+    return 0;
+  }
+  const robotsUrl = `${origin}/robots.txt`;
+  if (!cache.has(robotsUrl)) {
+    let txt = "";
+    try {
+      txt = await fetchText(robotsUrl);
+    } catch {
+      txt = "";
+    }
+    cache.set(robotsUrl, robotsParser(robotsUrl, txt));
+  }
+  const d = cache.get(robotsUrl).getCrawlDelay(USER_AGENT);
+  return d && d > 0 ? d * 1000 : 0;
+}

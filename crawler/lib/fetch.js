@@ -6,8 +6,9 @@ import { USER_AGENT, REQUEST_DELAY_MS } from "../config.js";
 const CACHE_DIR = fileURLToPath(new URL("../.cache/", import.meta.url));
 let lastRequestAt = 0;
 
-async function politeDelay() {
-  const wait = REQUEST_DELAY_MS - (Date.now() - lastRequestAt);
+async function politeDelay(minDelayMs = 0) {
+  const gap = Math.max(REQUEST_DELAY_MS, minDelayMs || 0);
+  const wait = gap - (Date.now() - lastRequestAt);
   if (wait > 0) await new Promise((r) => setTimeout(r, wait));
   lastRequestAt = Date.now();
 }
@@ -21,7 +22,7 @@ function cachePath(url) {
  * 1日1回・低速・条件付きリクエストで HTML を取得する。
  * ETag / Last-Modified をキャッシュし、304 のときは前回本文を返す。
  */
-export async function fetchText(url, { timeoutMs = 15000, retries = 2 } = {}) {
+export async function fetchText(url, { timeoutMs = 15000, retries = 2, minDelayMs = 0 } = {}) {
   fs.mkdirSync(CACHE_DIR, { recursive: true });
   const cp = cachePath(url);
   let cached = null;
@@ -34,7 +35,7 @@ export async function fetchText(url, { timeoutMs = 15000, retries = 2 } = {}) {
   let lastErr;
   for (let attempt = 0; attempt <= retries; attempt++) {
     if (attempt > 0) await new Promise((r) => setTimeout(r, 1000 * attempt));
-    await politeDelay();
+    await politeDelay(minDelayMs);
 
     const headers = { "User-Agent": USER_AGENT, "Accept-Language": "ja,en;q=0.8" };
     if (cached?.etag) headers["If-None-Match"] = cached.etag;

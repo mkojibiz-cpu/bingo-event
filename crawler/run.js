@@ -10,7 +10,7 @@
 import * as cheerio from "cheerio";
 import { sources } from "./sources/index.js";
 import { fetchText } from "./lib/fetch.js";
-import { isAllowed } from "./lib/robots.js";
+import { isAllowed, crawlDelayMs } from "./lib/robots.js";
 import { extractJsonLdEvents, jsonLdEventToRaw } from "./lib/extract.js";
 import { normalizeEvent, ymd } from "./lib/normalize.js";
 import { dedupe, mergePair } from "./lib/dedupe.js";
@@ -29,6 +29,13 @@ const warn = (m) => {
 const endOf = (e) => e.endDate || e.date;
 
 async function crawlSource(source, today) {
+  // robots.txt の Crawl-delay を尊重（source 側の minDelayMs があればさらに大きい方）
+  const robotsDelay = await crawlDelayMs(source.listUrls[0]);
+  const minDelayMs = Math.max(robotsDelay, source.minDelayMs || 0);
+  if (minDelayMs > 3000) {
+    console.log(`  ${source.name}: リクエスト間隔 ${Math.round(minDelayMs / 1000)}秒`);
+  }
+
   // 詳細URLを集める
   const detailUrls = new Set();
   for (const listUrl of source.listUrls) {
@@ -36,7 +43,7 @@ async function crawlSource(source, today) {
       warn(`${source.name}: robots.txt により不許可 (${listUrl})`);
       continue;
     }
-    const html = await fetchText(listUrl);
+    const html = await fetchText(listUrl, { minDelayMs });
     const $ = cheerio.load(html);
     for (const u of source.collectDetailLinks($, listUrl, html)) detailUrls.add(u);
   }
@@ -46,7 +53,7 @@ async function crawlSource(source, today) {
     if (!(await isAllowed(url))) continue;
     let html;
     try {
-      html = await fetchText(url);
+      html = await fetchText(url, { minDelayMs });
     } catch (e) {
       warn(`${source.name}: 取得失敗 ${url} — ${e.message}`);
       continue;

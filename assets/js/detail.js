@@ -64,6 +64,17 @@
     }
     if (ev.crawledAt) meta.push("最終確認日: " + esc(ev.crawledAt));
 
+    // 紹介文は手入力（data/manual.json）があるときだけ表示。クロール由来は空。
+    var descHtml = "";
+    if (ev.description && ev.description.trim()) {
+      descHtml = '<div class="detail__desc">' +
+        String(ev.description).split(/\n{2,}|\n/)
+          .filter(function (p) { return p.trim(); })
+          .map(function (p) { return "<p>" + esc(p.trim()) + "</p>"; })
+          .join("") +
+        "</div>";
+    }
+
     root.innerHTML =
       '<a class="back-link" href="index.html">← イベント一覧に戻る</a>' +
       '<div class="detail__hero" ' + heroStyle + ">" +
@@ -80,16 +91,11 @@
       row("料金", ev.fee) +
       row("主催", ev.organizer) +
       "</table>" +
-      '<div class="detail__desc">' +
-      String(ev.description || "")
-        .split(/\n{2,}|\n/)
-        .filter(function (p) { return p.trim(); })
-        .map(function (p) { return "<p>" + esc(p.trim()) + "</p>"; })
-        .join("") +
-      "</div>" +
+      descHtml +
       cta +
-      '<p class="detail__notice">この情報は各主催者・自治体などの公開情報をまとめたものです。' +
-      "日時・料金・開催有無が変更されている場合があります。おでかけ前に必ずリンク先で最新情報をご確認ください。</p>" +
+      '<p class="detail__notice">このページは各主催者・自治体などが公開している' +
+      "日時・会場などの事実情報をまとめたものです。内容は変更される場合があります。" +
+      "詳しい紹介や最新情報は必ずリンク先の公式ページでご確認ください。</p>" +
       (meta.length ? '<div class="detail__meta">' + meta.join("<br>") + "</div>" : "");
   }
 

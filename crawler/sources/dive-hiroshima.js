@@ -9,7 +9,9 @@
  *   （表示用の CSS クラスはハッシュ化されていて不安定なため）
  * - エリアは会場名から自動判定（areaHint: null）。備後（福山・笠岡・尾道・
  *   府中・神辺）に該当しないイベントは normalize 側で除外される
- * - 保存するのは名称・日時・会場・要約・出典リンクのみ（写真は取得しない）
+ * - 取得するのは「事実情報」のみ：名称・日時・会場・住所・時間・料金・主催・
+ *   出典リンク。説明文やキャッチコピー、写真は取得しない（著作権に配慮）。
+ *   紹介文が要るときは data/manual.json に自分の言葉で書く。
  */
 
 const FRONT = "https://dive-hiroshima.com";
@@ -79,7 +81,6 @@ export default {
     const bd = d.base_data || {};
     const i2 = d.info2_data || {};
     const acc = d.access_data || {};
-    const info = d.info_data || {};
 
     const name = (d.meta && d.meta.title) || "";
     if (!name) return null;
@@ -89,14 +90,7 @@ export default {
     if (!start) return null;
     const end = isoDate(period.end_date);
 
-    let body = "";
-    if (Array.isArray(info.share_post_set)) {
-      for (const s of info.share_post_set) {
-        if (s && s.content && s.content.body) body += " " + stripTags(s.content.body);
-      }
-    }
-    const summary = bd.sub_title || info.summary || info.headline || body;
-
+    // 事実情報のみ。説明文・キャッチコピー（info.*, bd.sub_title 等）は取らない。
     return {
       sourceUrl: url,
       name,
@@ -107,8 +101,6 @@ export default {
       time: stripTags(i2.event_time),
       fee: stripTags(i2.price),
       organizer: stripTags(i2.contact).replace(/\s*(TEL|電話)[:：].*$/i, "").trim(),
-      summary,
-      description: summary,
     };
   },
 };
