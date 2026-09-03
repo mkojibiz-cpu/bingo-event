@@ -35,9 +35,11 @@ jobs:
             --exclude='.github' \
             --exclude='.claude' \
             --exclude='crawler' \
+            --exclude='design' \
             --exclude='node_modules' \
             --exclude='README.md' \
             --exclude='.gitignore' \
+            --exclude='.gitattributes' \
             ./ _site/
 
       - uses: actions/configure-pages@v5

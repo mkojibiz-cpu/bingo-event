@@ -1,0 +1,644 @@
+<title>びんごイベントナビ デザイン10案</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #f6f4f0;
+    --surface: #fffdfa;
+    --text: #1f2328;
+    --muted: #6b7076;
+    --line: #e2ddd4;
+    --accent: #3f6b73;
+    --accent-soft: #e7efef;
+    --radius: 10px;
+    --maxw: 1080px;
+    --shell-sans: "Zen Kaku Gothic New", system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    --shell-mono: ui-monospace, "SFMono-Regular", "DejaVu Sans Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15171a;
+      --surface: #1c1f22;
+      --text: #e9e7e2;
+      --muted: #9aa0a6;
+      --line: #2e3236;
+      --accent: #86b4ba;
+      --accent-soft: #21302f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15171a;
+    --surface: #1c1f22;
+    --text: #e9e7e2;
+    --muted: #9aa0a6;
+    --line: #2e3236;
+    --accent: #86b4ba;
+    --accent-soft: #21302f;
+  }
+
+  * { box-sizing: border-box; }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--shell-sans);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  html { scroll-behavior: smooth; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+  /* ---- intro ---- */
+  .intro { padding: 56px 0 8px; }
+  .intro__eyebrow {
+    font-size: .8rem; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700; margin: 0 0 10px;
+  }
+  .intro h1 {
+    font-size: clamp(1.7rem, 4vw, 2.5rem); line-height: 1.3; margin: 0 0 14px;
+    font-weight: 700; text-wrap: balance;
+  }
+  .intro p { margin: 0 0 12px; max-width: 62ch; color: var(--muted); }
+  .intro strong { color: var(--text); font-weight: 700; }
+
+  /* ---- index table ---- */
+  .index {
+    width: 100%; border-collapse: collapse; margin: 24px 0 8px;
+    font-size: .9rem; background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .index th, .index td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .index tr:last-child td { border-bottom: 0; }
+  .index th { background: var(--accent-soft); color: var(--text); font-weight: 700; white-space: nowrap; }
+  .index td:first-child { font-variant-numeric: tabular-nums; color: var(--muted); width: 2.5em; }
+  .index a { color: var(--accent); text-decoration: none; font-weight: 700; }
+  .index a:hover { text-decoration: underline; }
+  .index .sys { color: var(--muted); white-space: nowrap; }
+
+  /* ---- direction block ---- */
+  .dir { padding: 40px 0; border-top: 1px solid var(--line); scroll-margin-top: 16px; }
+  .dir:first-of-type { border-top: 0; }
+  .dir__head { display: flex; gap: 16px; align-items: baseline; margin: 0 0 18px; }
+  .dir__num {
+    font-variant-numeric: tabular-nums; font-size: 1.05rem; font-weight: 700;
+    color: var(--surface); background: var(--accent);
+    min-width: 2em; height: 2em; border-radius: 7px;
+    display: inline-flex; align-items: center; justify-content: center; flex: none;
+  }
+  .dir__title { margin: 0; font-size: 1.3rem; font-weight: 700; }
+  .dir__title span { font-size: .95rem; color: var(--muted); font-weight: 500; margin-left: .5em; }
+  .dir__mood { margin: 4px 0 0; color: var(--muted); font-size: .92rem; }
+
+  .dir__grid { display: grid; grid-template-columns: 288px 1fr; gap: 22px; align-items: start; }
+  @media (max-width: 860px) { .dir__grid { grid-template-columns: 1fr; } }
+
+  .spec {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 16px; font-size: .86rem;
+    position: sticky; top: 16px;
+  }
+  @media (max-width: 860px) { .spec { position: static; } }
+  .spec__chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+  .spec__chip { width: 46px; }
+  .spec__sw { height: 40px; border-radius: 6px; border: 1px solid rgba(0,0,0,.14); }
+  .spec__hex { display: block; margin-top: 3px; font-family: var(--shell-mono); font-size: .62rem; color: var(--muted); text-align: center; }
+  .spec dl { display: grid; grid-template-columns: 4em 1fr; gap: 4px 10px; margin: 0 0 12px; }
+  .spec dt { color: var(--muted); }
+  .spec dd { margin: 0; }
+  .spec h4 { margin: 12px 0 4px; font-size: .8rem; letter-spacing: .06em; }
+  .spec h4.pro { color: #2f7d4f; }
+  .spec h4.con { color: #b06a1f; }
+  :root:not([data-theme="light"]) .spec h4.pro { color: #6fca92; }
+  :root:not([data-theme="light"]) .spec h4.con { color: #dda45f; }
+  :root[data-theme="dark"] .spec h4.pro { color: #6fca92; }
+  :root[data-theme="dark"] .spec h4.con { color: #dda45f; }
+  .spec ul { margin: 0 0 4px; padding-left: 1.15em; }
+  .spec li { margin: 2px 0; }
+
+  .frame-wrap { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; }
+  iframe.frame { width: 100%; border: 0; display: block; background: #fff; }
+
+  .foot { padding: 48px 0 72px; color: var(--muted); font-size: .88rem; border-top: 1px solid var(--line); margin-top: 24px; }
+
+  .tag {
+    display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .04em;
+    padding: 2px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent);
+  }
+</style>
+
+<div class="wrap">
+  <header class="intro">
+    <p class="intro__eyebrow">Design directions</p>
+    <h1>びんごイベントナビ ― デザイン方向性 10案</h1>
+    <p>公開前に <strong>デザインの方向性を1つ</strong> 決めるための比較ギャラリーです。
+       10案すべて同じサンプルイベント（実データから6件）を使い、上から
+       <strong>中立・実用系 → ご当地・個性系</strong> の順に並べています。</p>
+    <p>各案は「トップページのミニモックアップ（枠内）」＋「配色・書体・向き/注意のスペック」。
+       写真は実写がまだ無いためプレースホルダです（特に 6・7 は実写が入ると印象が変わります）。
+       気に入った番号、または「1のレイアウト＋8の色」のようなブレンドを教えてください。
+       決定後、実サイトの <code>style.css</code> に反映します。</p>
+
+    <table class="index">
+      <thead><tr><th>#</th><th>案名</th><th>系統</th><th>ひとことで</th></tr></thead>
+      <tbody id="indexBody"></tbody>
+    </table>
+  </header>
+
+  <main id="gallery"></main>
+
+  <footer class="foot wrap" style="padding-left:0;padding-right:0">
+    サンプル：福山ばら祭 / あしだ川花火大会 / 尾道灯りまつり / 笠岡ベイファームひまわり畑まつり /
+    府中焼きグランプリ / ばらのまち福山国際音楽祭。 &nbsp;— びんごイベントナビ 内部検討用
+  </footer>
+</div>
+
+<script>
+/* ---------- 共有サンプルデータ ---------- */
+const EVENTS = [
+  { name: "福山ばら祭2026",            area: "福山", date: "5/16〜17", sum: "100万本のばらが咲く初夏の市民祭。", h: 338 },
+  { name: "あしだ川花火大会",           area: "福山", date: "8/15",     sum: "芦田川河川敷で約1万5千発。",       h: 255 },
+  { name: "尾道灯りまつり",             area: "尾道", date: "10/3",     sum: "坂の町を約3万個のぼんぼりが照らす。", h: 28 },
+  { name: "笠岡ひまわり畑まつり",        area: "笠岡", date: "7/25〜",   sum: "干拓地に約100万本のひまわり。",     h: 45 },
+  { name: "府中焼きグランプリ",          area: "府中", date: "9/13",     sum: "ミンチ肉が香るご当地お好み焼きの祭典。", h: 18 },
+  { name: "ばらのまち福山国際音楽祭",     area: "福山", date: "9/19〜23", sum: "市内各所で5日間の公演とワークショップ。", h: 200 },
+];
+
+/* ---------- モック共通の骨組み（DOMは全案同一。見た目はCSSだけで差をつける） ---------- */
+function cardsHtml() {
+  return EVENTS.map(function (e) {
+    return (
+      '<article class="card">' +
+        '<div class="card-photo" style="--h:' + e.h + '">' +
+          '<span class="card-badge">' + e.area + '</span>' +
+          '<span class="card-date">' + e.date + '</span>' +
+        '</div>' +
+        '<div class="card-body">' +
+          '<h3 class="card-name">' + e.name + '</h3>' +
+          '<p class="card-sum">' + e.sum + '</p>' +
+        '</div>' +
+      '</article>'
+    );
+  }).join("");
+}
+
+const SKELETON =
+  '<div class="mock">' +
+    '<header class="m-head">' +
+      '<div class="m-logo"><span class="m-mark"></span><span>びんごイベントナビ</span></div>' +
+      '<div class="m-nav">福山・笠岡・尾道・府中・神辺</div>' +
+    '</header>' +
+    '<section class="m-hero"><div class="m-hero-in">' +
+      '<p class="m-eyebrow">備後・福山エリア</p>' +
+      '<h1 class="m-title">この週末、どこ行く？</h1>' +
+      '<p class="m-sub">お祭り・花火・展示・マルシェを毎日更新</p>' +
+      '<div class="m-tags"><span>福山</span><span>笠岡</span><span>尾道</span><span>府中</span><span>神辺</span></div>' +
+    '</div></section>' +
+    '<div class="m-filter"><span class="on">すべて</span><span>福山</span><span>笠岡</span><span>尾道</span><span>府中</span><span>神辺</span></div>' +
+    '<p class="m-label">開催が近い順</p>' +
+    '<div class="m-grid">' + cardsHtml() + '</div>' +
+  '</div>';
+
+const RESET = [
+  '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}',
+  'html,body{height:100%}',
+  'body{font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;color:#222;background:#fff;-webkit-font-smoothing:antialiased;line-height:1.6}',
+  '@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}',
+  '.mock{min-height:100%;display:flex;flex-direction:column}',
+  '.m-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}',
+  '.card{position:relative;overflow:hidden}',
+  '.card-photo{position:relative;aspect-ratio:16/10;background:linear-gradient(140deg,hsl(var(--h) 55% 60%),hsl(calc(var(--h) + 42) 58% 45%))}',
+  '.card-badge{position:absolute;top:8px;left:8px}',
+  '.card-date{position:absolute;left:8px;bottom:8px}',
+  '.m-nav{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
+].join("\n");
+
+/* ---------- 10案の定義 ---------- */
+const DIRECTIONS = [
+{
+  id: "d1", name: "Utility Board", jp: "情報掲示板", sys: "中立・高密度",
+  blurb: "墨＋赤1色。1画面の件数を最大化した掲示板型。",
+  mood: "地域の掲示板。とにかく速く、たくさん見える。装飾は最小限。",
+  fonts: "システムsans（Webフォントなし）",
+  chips: [["紙","#ffffff"],["墨","#16181c"],["罫","#d7d9dd"],["朱","#c8202a"]],
+  pro: ["情報量が最大。回遊せずに一覧できる", "読み込みが速く、モバイルでも軽い", "写真が少なくても成立する"],
+  con: ["無機質で“わくわく感”は出にくい", "ブランドの記憶に残りにくい"],
+  h: 620, fontLink: "",
+  css: [
+    'body{font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;color:#16181c}',
+    '.m-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 14px;border-bottom:2px solid #16181c}',
+    '.m-logo{font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px}',
+    '.m-mark{width:12px;height:12px;background:#c8202a;display:block}',
+    '.m-nav{font-size:11px;color:#5b6068}',
+    '.m-hero{background:#f4f5f6;border-bottom:1px solid #d7d9dd;padding:8px 14px}',
+    '.m-eyebrow{font-size:10px;letter-spacing:.1em;color:#c8202a;font-weight:700}',
+    '.m-title{font-size:15px;font-weight:800}',
+    '.m-sub{font-size:11px;color:#5b6068}',
+    '.m-tags{display:none}',
+    '.m-filter{display:flex;gap:10px;padding:7px 14px;font-size:11px;border-bottom:1px solid #d7d9dd}',
+    '.m-filter .on{color:#c8202a;font-weight:800;border-bottom:2px solid #c8202a}',
+    '.m-label{font-size:10px;letter-spacing:.08em;color:#5b6068;padding:6px 14px 0;text-transform:uppercase}',
+    '.m-grid{grid-template-columns:repeat(3,1fr);gap:1px;background:#d7d9dd;padding:1px 1px 0;margin:6px 14px 14px;border:1px solid #d7d9dd}',
+    '.card{background:#fff}',
+    '.card-photo{aspect-ratio:auto;height:64px;background:hsl(var(--h) 24% 84%)}',
+    '.card-badge{top:5px;left:5px;font-size:9px;font-weight:800;background:#16181c;color:#fff;padding:1px 5px}',
+    '.card-date{display:none}',
+    '.card-body{padding:6px 9px 9px}',
+    '.card-name{font-size:12.5px;font-weight:800;line-height:1.35}',
+    '.card-sum{display:none}',
+    '.card::after{content:attr(data-x)}'
+  ].join("\n")
+},
+{
+  id: "d2", name: "Clean Minimal", jp: "余白ミニマル", sys: "中立",
+  blurb: "純白・黒・極細ライン1本。余白と写真で見せる。",
+  mood: "静かで洗練。要素を引き算し、余白と写真に語らせる。",
+  fonts: "Zen Kaku Gothic New（400/500）",
+  chips: [["白","#ffffff"],["黒","#101010"],["淡罫","#ececec"],["灰","#8a8a8a"]],
+  pro: ["洗練され、写真がきれいに映える", "情報が少ない日でも成立する", "どのエリアの色にも寄らず中立"],
+  con: ["“お祭り感”は弱い", "余白が多く1画面の件数は少ない"],
+  h: 700,
+  fontLink: "https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500&display=swap",
+  css: [
+    'body{font-family:"Zen Kaku Gothic New",system-ui,sans-serif;color:#101010}',
+    '.m-head{display:flex;justify-content:space-between;align-items:center;padding:20px 26px;border-bottom:1px solid #ececec}',
+    '.m-logo{font-weight:500;letter-spacing:.06em;display:flex;align-items:center;gap:9px;font-size:14px}',
+    '.m-mark{width:7px;height:7px;background:#101010;display:block}',
+    '.m-nav{font-size:11px;color:#8a8a8a;letter-spacing:.04em}',
+    '.m-hero{padding:52px 26px 40px}',
+    '.m-eyebrow{font-size:11px;letter-spacing:.2em;color:#8a8a8a;text-transform:uppercase}',
+    '.m-title{font-size:30px;font-weight:500;margin:10px 0 8px;letter-spacing:.02em}',
+    '.m-sub{color:#6b6b6b;font-size:13px}',
+    '.m-tags{display:flex;gap:14px;margin-top:16px;font-size:11px;color:#8a8a8a;letter-spacing:.08em}',
+    '.m-tags span::before{content:"";}',
+    '.m-filter{display:flex;gap:20px;padding:0 26px 4px;font-size:12px;color:#8a8a8a}',
+    '.m-filter .on{color:#101010;border-bottom:1px solid #101010;padding-bottom:3px}',
+    '.m-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8a8a8a;padding:26px 26px 0}',
+    '.m-grid{grid-template-columns:repeat(3,1fr);gap:44px 26px;padding:18px 26px 40px}',
+    '.card-photo{aspect-ratio:4/3;background:hsl(var(--h) 12% 88%)}',
+    '.card-badge{top:8px;left:8px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#3a3a3a;background:rgba(255,255,255,.75);padding:2px 7px}',
+    '.card-date{left:8px;bottom:8px;font-size:10px;letter-spacing:.08em;color:#3a3a3a;background:rgba(255,255,255,.75);padding:1px 6px}',
+    '.card-body{padding:14px 0 0}',
+    '.card-name{font-size:15px;font-weight:500;line-height:1.5}',
+    '.card-sum{font-size:12px;color:#8a8a8a;margin-top:5px}'
+  ].join("\n")
+},
+{
+  id: "d3", name: "Modern App", jp: "モダンアプリ", sys: "中立",
+  blurb: "藍のアクセント・角丸16px・やわらかい影・チップUI。",
+  mood: "よくできた地域アプリ。操作しやすく、今っぽい。",
+  fonts: "IBM Plex Sans JP（400/500/600）",
+  chips: [["地","#f7f8fa"],["面","#ffffff"],["藍","#3457d5"],["文字","#1a1d23"],["罫","#e6e8ec"]],
+  pro: ["フィルタ・チップ等の操作系と相性が良い", "拡張（検索・保存・地図）しても破綻しにくい", "万人に“ちゃんとして見える”"],
+  con: ["個性は控えめ。他の地域サイトと似がち", "ご当地感は弱い"],
+  h: 660,
+  fontLink: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600&display=swap",
+  css: [
+    'body{font-family:"IBM Plex Sans JP",system-ui,sans-serif;color:#1a1d23;background:#f7f8fa}',
+    '.m-head{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:#fff;box-shadow:0 1px 0 #e6e8ec,0 2px 10px rgba(20,20,45,.04)}',
+    '.m-logo{font-weight:600;display:flex;align-items:center;gap:9px;font-size:14px}',
+    '.m-mark{width:20px;height:20px;border-radius:7px;background:linear-gradient(135deg,#3457d5,#5b7bf0);display:block}',
+    '.m-nav{font-size:11px;color:#667085}',
+    '.m-hero{padding:16px}',
+    '.m-hero-in{background:#fff;border:1px solid #e6e8ec;border-radius:16px;padding:22px;box-shadow:0 1px 2px rgba(20,20,45,.04),0 10px 28px rgba(20,20,45,.05)}',
+    '.m-eyebrow{font-size:11px;letter-spacing:.12em;color:#3457d5;font-weight:600;text-transform:uppercase}',
+    '.m-title{font-size:22px;font-weight:600;margin:6px 0 6px}',
+    '.m-sub{color:#667085;font-size:13px}',
+    '.m-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}',
+    '.m-tags span{font-size:11px;font-weight:600;color:#3457d5;background:#eef1fb;padding:4px 11px;border-radius:999px}',
+    '.m-filter{display:flex;gap:8px;flex-wrap:wrap;padding:4px 16px 8px}',
+    '.m-filter span{font-size:12px;font-weight:600;color:#667085;background:#fff;border:1px solid #e6e8ec;padding:6px 13px;border-radius:999px}',
+    '.m-filter .on{background:#3457d5;border-color:#3457d5;color:#fff}',
+    '.m-label{font-size:12px;font-weight:600;color:#667085;padding:8px 18px 0}',
+    '.m-grid{grid-template-columns:repeat(3,1fr);gap:16px;padding:12px 16px 20px}',
+    '.card{background:#fff;border:1px solid #e6e8ec;border-radius:16px;box-shadow:0 1px 2px rgba(20,20,45,.05),0 8px 22px rgba(20,20,45,.05)}',
+    '.card-photo{border-radius:15px 15px 0 0}',
+    '.card-badge{background:#fff;color:#1a1d23;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;box-shadow:0 1px 4px rgba(0,0,0,.14)}',
+    '.card-date{background:#fff;color:#1a1d23;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;box-shadow:0 1px 4px rgba(0,0,0,.14)}',
+    '.card-body{padding:12px 14px 14px}',
+    '.card-name{font-size:14.5px;font-weight:600;line-height:1.45}',
+    '.card-sum{font-size:12px;color:#667085;margin-top:5px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}'
+  ].join("\n")
+},
+{
+  id: "d4", name: "Editorial Magazine", jp: "雑誌", sys: "中立寄り",
+  blurb: "明朝ディスプレイ＋バーントオレンジ。行間広め、記事的。",
+  mood: "地域のカルチャー誌。読み物として立っている。",
+  fonts: "Shippori Mincho（600/800）＋ Noto Sans JP",
+  chips: [["生成り","#fbfaf7"],["墨茶","#1c1a17"],["橙","#b4491f"],["罫","#ded9cf"]],
+  pro: ["“ただの一覧”でなく読み物に見える", "特集・コラムを足したときに映える", "落ち着きと品がある"],
+  con: ["明朝が小サイズだと可読性に注意", "スピード感・にぎやかさは出ない"],
+  h: 720,
+  fontLink: "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Noto+Sans+JP:wght@400;500&display=swap",
+  css: [
+    'body{font-family:"Noto Sans JP",system-ui,sans-serif;color:#1c1a17;background:#fbfaf7;line-height:1.8}',
+    '.m-head{display:flex;justify-content:space-between;align-items:baseline;padding:18px 26px 12px;border-bottom:1px solid #1c1a17}',
+    '.m-logo{font-family:"Shippori Mincho",serif;font-weight:800;font-size:17px;display:flex;align-items:baseline;gap:8px}',
+    '.m-mark{width:8px;height:8px;background:#b4491f;display:block;align-self:center}',
+    '.m-nav{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#6d665c}',
+    '.m-hero{padding:36px 26px 26px;border-bottom:1px solid #ded9cf}',
+    '.m-hero-in{max-width:34ch;border-left:2px solid #b4491f;padding-left:18px}',
+    '.m-eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#b4491f;font-weight:700}',
+    '.m-title{font-family:"Shippori Mincho",serif;font-weight:800;font-size:32px;line-height:1.32;margin:8px 0 10px;text-wrap:balance}',
+    '.m-sub{font-size:13px;color:#4a453d}',
+    '.m-tags{display:flex;gap:12px;margin-top:14px;font-family:"Shippori Mincho",serif;font-style:italic;font-size:12px;color:#6d665c}',
+    '.m-filter{display:flex;gap:16px;padding:14px 26px 6px;font-family:"Shippori Mincho",serif;font-style:italic;font-size:13px;color:#6d665c}',
+    '.m-filter .on{color:#b4491f;border-bottom:1px solid #b4491f}',
+    '.m-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#6d665c;padding:20px 26px 0}',
+    '.m-grid{grid-template-columns:repeat(3,1fr);gap:34px 24px;padding:16px 26px 34px}',
+    '.card-photo{aspect-ratio:3/2;box-shadow:inset 0 0 0 1px rgba(28,26,23,.12)}',
+    '.card-badge{top:8px;left:8px;background:#fbfaf7;color:#b4491f;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:2px 7px}',
+    '.card-date{left:8px;bottom:8px;font-size:10px;color:#1c1a17;background:#fbfaf7;padding:1px 6px;letter-spacing:.04em}',
+    '.card-body{padding:12px 0 0}',
+    '.card-name{font-family:"Shippori Mincho",serif;font-weight:600;font-size:17px;line-height:1.5}',
+    '.card-sum{font-size:12px;color:#6d665c;margin-top:6px}'
+  ].join("\n")
+},
+{
+  id: "d5", name: "Setouchi Bright", jp: "瀬戸内ブライト", sys: "ややご当地",
+  blurb: "ターコイズ＋コーラル＋サンド。明るく開放的で観光的。",
+  mood: "瀬戸内の海と島。カラッと明るく、旅の入口っぽい。",
+  fonts: "Zen Maru Gothic（500/700）",
+  chips: [["砂","#fff8ee"],["碧","#0fa3b1"],["珊瑚","#ff6f5e"],["藍緑文字","#12333a"]],
+  pro: ["旅行・おでかけ気分に合う明るさ", "エリア色（海・花）と親和性が高い", "家族〜観光客に届きやすい"],
+  con: ["主張が強めで、硬い催しには軽く見える", "多色なので写真とぶつからない調整が要る"],
+  h: 680,
+  fontLink: "https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap",
+  css: [
+    'body{font-family:"Zen Maru Gothic",system-ui,sans-serif;color:#12333a;background:#fff8ee}',
+    '.m-head{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:#fff}',
+    '.m-logo{font-weight:700;display:flex;align-items:center;gap:9px;font-size:14px}',
+    '.m-mark{width:18px;height:18px;border-radius:50%;background:#0fa3b1;display:block}',
+    '.m-nav{font-size:11px;color:#5a7a80}',
+    '.m-hero{padding:16px 20px}',
+    '.m-hero-in{position:relative;overflow:hidden;background:linear-gradient(135deg,#0fa3b1,#12849a);color:#fff;border-radius:22px;padding:24px}',
+    '.m-hero-in::after{content:"";position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,#ff6f5e,rgba(255,111,94,0))}',
+    '.m-eyebrow{font-size:11px;letter-spacing:.14em;opacity:.9;font-weight:700}',
+    '.m-title{font-size:24px;font-weight:700;margin:6px 0 6px}',
+    '.m-sub{font-size:12.5px;opacity:.95}',
+    '.m-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}',
+    '.m-tags span{font-size:11px;font-weight:700;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.5);padding:3px 11px;border-radius:999px}',
+    '.m-filter{display:flex;gap:8px;flex-wrap:wrap;padding:2px 20px 8px}',
+    '.m-filter span{font-size:12px;font-weight:700;color:#0f7a86;background:#fff;border:1px solid #ffe0c8;padding:6px 13px;border-radius:999px}',
+    '.m-filter .on{background:#ff6f5e;border-color:#ff6f5e;color:#fff}',
+    '.m-label{font-size:12px;font-weight:700;color:#5a7a80;padding:8px 20px 0}',
+    '.m-grid{grid-template-columns:repeat(3,1fr);gap:18px;padding:12px 20px 22px}',
+    '.card{background:#fff;border-radius:20px;padding:8px;box-shadow:0 2px 4px rgba(18,51,58,.06),0 14px 30px rgba(18,51,58,.08)}',
+    '.card-photo{border-radius:14px}',
+    '.card-badge{background:#ff6f5e;color:#fff;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px}',
+    '.card-date{background:#fff;color:#0f7a86;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px}',
+    '.card-body{padding:10px 8px 6px}',
+    '.card-name{font-size:14.5px;font-weight:700;line-height:1.45}',
+    '.card-sum{font-size:11.5px;color:#4a6a70;margin-top:4px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}'
+  ].join("\n")
+},
+{
+  id: "d6", name: "Night / Neon", jp: "夜のイベント", sys: "中立×ご当地",
+  blurb: "ダーク地にばら＋シアンのグロー。花火・ライトアップ向け。",
+  mood: "夜の催しが主役。暗い画面で写真と光が締まる。",
+  fonts: "Zen Kaku Gothic New（500/700）／ダーク固定",
+  chips: [["地","#131417"],["面","#1b1d22"],["薔薇","#ff3d7f"],["シアン","#37e0d8"],["文字","#ecebe8"]],
+  pro: ["花火・イルミ・ナイトマーケットが映える", "写真（実写）が入ると一気に高級感", "他サイトと差がつく"],
+  con: ["昼のイベントや文化系はやや冷たく見える", "ダーク固定＝万人向けではない"],
+  h: 660,
+  fontLink: "https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&display=swap",
+  css: [
+    'body{font-family:"Zen Kaku Gothic New",system-ui,sans-serif;color:#ecebe8;background:#131417}',
+    '.m-head{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:#15161a;box-shadow:0 1px 0 rgba(55,224,216,.35)}',
+    '.m-logo{font-weight:700;display:flex;align-items:center;gap:9px;font-size:14px}',
+    '.m-mark{width:12px;height:12px;border-radius:50%;background:#ff3d7f;box-shadow:0 0 10px #ff3d7f;display:block}',
+    '.m-nav{font-size:11px;color:#8b8b93}',
+    '.m-hero{position:relative;padding:34px 20px;background:radial-gradient(60% 100% at 15% 0%,rgba(255,61,127,.28),transparent 70%),radial-gradient(50% 100% at 100% 100%,rgba(55,224,216,.22),transparent 70%),#101115}',
+    '.m-eyebrow{font-size:11px;letter-spacing:.16em;color:#37e0d8;font-weight:700;text-transform:uppercase}',
+    '.m-title{font-size:26px;font-weight:700;margin:6px 0 8px}',
+    '.m-sub{font-size:12.5px;color:#b6b6bd}',
+    '.m-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}',
+    '.m-tags span{font-size:11px;font-weight:700;color:#c7f6f3;border:1px solid rgba(55,224,216,.5);padding:3px 11px;border-radius:999px}',
+    '.m-filter{display:flex;gap:8px;flex-wrap:wrap;padding:10px 20px}',
+    '.m-filter span{font-size:12px;font-weight:700;color:#b6b6bd;border:1px solid #33353d;padding:6px 13px;border-radius:999px}',
+    '.m-filter .on{background:#ff3d7f;border-color:#ff3d7f;color:#fff;box-shadow:0 0 14px rgba(255,61,127,.5)}',
+    '.m-label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8b8b93;padding:2px 20px 0}',
+    '.m-grid{grid-template-columns:repeat(3,1fr);gap:18px;padding:12px 20px 22px}',
+    '.card{background:#1b1d22;border:1px solid #2b2d33;border-radius:12px;transition:border-color .15s,box-shadow .15s}',
+    '.card:hover{border-color:#ff3d7f;box-shadow:0 0 20px rgba(255,61,127,.35)}',
+    '.card-photo{border-radius:11px 11px 0 0;background:linear-gradient(140deg,hsl(var(--h) 45% 32%),hsl(calc(var(--h) + 40) 48% 16%))}',
+    '.card-badge{background:rgba(255,255,255,.14);color:#fff;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;backdrop-filter:blur(3px)}',
+    '.card-date{color:#37e0d8;font-size:11px;font-weight:700}',
+    '.card-body{padding:11px 13px 13px}',
+    '.card-name{font-size:14px;font-weight:700;line-height:1.45}',
+    '.card-sum{font-size:11.5px;color:#9a9aa2;margin-top:4px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}'
+  ].join("\n")
+},
+{
+  id: "d7", name: "Photo-first Feed", jp: "写真主役・大判", sys: "中立",
+  blurb: "2カラムの大判カード。画像の上に見出しを重ねる没入型。",
+  mood: "写真で選ぶ。眺めて回遊する発見型フィード。",
+  fonts: "Noto Sans JP（700/900）",
+  chips: [["白","#ffffff"],["黒","#14161a"],["淡罫","#ececec"]],
+  pro: ["実写が集まると最も“見て楽しい”", "1件1件の存在感が大きい", "SNS的な回遊と相性◎"],
+  con: ["写真が無い/弱いと単調（今はプレースホルダ）", "1画面の件数は少ない。文字情報は減る"],
+  h: 760,
+  fontLink: "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700;900&display=swap",
+  css: [
+    'body{font-family:"Noto Sans JP",system-ui,sans-serif;color:#14161a}',
+    '.m-head{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #ececec}',
+    '.m-logo{font-weight:900;display:flex;align-items:center;gap:8px;font-size:15px}',
+    '.m-mark{width:10px;height:10px;background:#14161a;display:block}',
+    '.m-nav{font-size:11px;color:#8a8a8a}',
+    '.m-hero{position:relative;height:200px;background:linear-gradient(135deg,hsl(338 55% 55%),hsl(255 45% 40%));display:flex;align-items:flex-end}',
+    '.m-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.6))}',
+    '.m-hero-in{position:relative;z-index:1;color:#fff;padding:22px}',
+    '.m-eyebrow{font-size:11px;letter-spacing:.14em;font-weight:700;opacity:.9}',
+    '.m-title{font-size:28px;font-weight:900;margin:4px 0 4px}',
+    '.m-sub{font-size:12px;opacity:.92}',
+    '.m-tags{display:none}',
+    '.m-filter{display:flex;gap:8px;flex-wrap:wrap;padding:12px 20px}',
+    '.m-filter span{font-size:12px;font-weight:700;color:#5a5a5a;border:1px solid #e2e2e2;padding:5px 12px;border-radius:6px}',
+    '.m-filter .on{background:#14161a;border-color:#14161a;color:#fff}',
+    '.m-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a8a8a;padding:2px 20px 0}',
+    '.m-grid{grid-template-columns:repeat(2,1fr);gap:18px;padding:12px 20px 24px}',
+    '.card{border-radius:14px;aspect-ratio:16/11}',
+    '.card-photo{position:absolute;inset:0;aspect-ratio:auto;height:100%}',
+    '.card-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(0,0,0,.75))}',
+    '.card-badge{z-index:2;background:rgba(255,255,255,.92);color:#14161a;font-size:11px;font-weight:900;padding:3px 10px;border-radius:999px}',
+    '.card-date{z-index:2;left:auto;right:10px;bottom:auto;top:10px;color:#fff;font-size:12px;font-weight:700;text-shadow:0 1px 6px rgba(0,0,0,.5)}',
+    '.card-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:14px 16px;color:#fff}',
+    '.card-name{font-size:18px;font-weight:900;line-height:1.35;text-shadow:0 2px 10px rgba(0,0,0,.5)}',
+    '.card-sum{display:none}'
+  ].join("\n")
+},
+{
+  id: "d8", name: "Japandi 和モダン", jp: "藍と生成り", sys: "ご当地・端正",
+  blurb: "藍色＋生成り＋墨。明朝見出し、影の代わりに極細罫、角ゼロ。",
+  mood: "鞆の浦の町並み。静かで端正。日本の余白。",
+  fonts: "Shippori Mincho（500/600）＋ Zen Kaku Gothic New",
+  chips: [["生成り","#f4f1e8"],["面","#faf8f2"],["藍","#1f3a5f"],["墨","#23262b"],["罫","#ddd8c9"]],
+  pro: ["上品で信頼感。行政・文化系とも相性◎", "備後の“町並み・藍染”の土地感が出る", "写真が少なくても静かに成立"],
+  con: ["華やかさ・スピード感は控えめ", "若年・ファミリー層にはやや大人しい"],
+  h: 700,
+  fontLink: "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400&display=swap",
+  css: [
+    'body{font-family:"Zen Kaku Gothic New",system-ui,sans-serif;color:#23262b;background:#f4f1e8;line-height:1.85}',
+    '.m-head{display:flex;justify-content:space-between;align-items:center;padding:16px 26px;border-bottom:1px solid #ddd8c9}',
+    '.m-logo{font-family:"Shippori Mincho",serif;font-weight:600;color:#1f3a5f;font-size:16px;display:flex;align-items:center;gap:9px}',
+    '.m-mark{width:9px;height:9px;background:#1f3a5f;display:block}',
+    '.m-nav{font-size:10.5px;letter-spacing:.14em;color:#6a6459}',
+    '.m-hero{padding:44px 26px 34px}',
+    '.m-hero-in{max-width:36ch}',
+    '.m-eyebrow{font-size:11px;letter-spacing:.24em;color:#1f3a5f;border-top:1px solid #1f3a5f;padding-top:8px;display:inline-block}',
+    '.m-title{font-family:"Shippori Mincho",serif;font-weight:600;font-size:27px;color:#1f3a5f;line-height:1.5;margin:10px 0 8px}',
+    '.m-sub{font-size:12.5px;color:#5b5548}',
+    '.m-tags{display:flex;gap:8px;margin-top:16px}',
+    '.m-tags span{font-size:11px;color:#1f3a5f;border:1px solid #1f3a5f;padding:2px 10px}',
+    '.m-filter{display:flex;gap:18px;padding:6px 26px 4px;font-size:12.5px;color:#6a6459}',
+    '.m-filter .on{color:#1f3a5f;border-bottom:2px solid #1f3a5f;padding-bottom:2px}',
+    '.m-label{font-size:11px;letter-spacing:.22em;color:#6a6459;padding:22px 26px 0}',
+    '.m-grid{grid-template-columns:repeat(3,1fr);gap:30px 22px;padding:16px 26px 34px}',
+    '.card{background:#faf8f2;border:1px solid #ddd8c9}',
+    '.card-photo{aspect-ratio:4/3;background:linear-gradient(140deg,hsl(var(--h) 20% 74%),hsl(calc(var(--h) + 30) 22% 60%))}',
+    '.card-badge{top:0;left:0;background:transparent;color:#1f3a5f;font-size:10px;letter-spacing:.12em;font-weight:600;padding:7px 0 0 8px}',
+    '.card-date{left:8px;bottom:8px;background:#faf8f2;color:#23262b;font-size:10.5px;padding:1px 7px;font-variant-numeric:tabular-nums}',
+    '.card-body{padding:12px 12px 14px}',
+    '.card-name{font-family:"Shippori Mincho",serif;font-weight:600;font-size:15px;line-height:1.55}',
+    '.card-sum{font-size:11.5px;color:#6a6459;margin-top:5px}'
+  ].join("\n")
+},
+{
+  id: "d9", name: "Retro Print リソグラフ", jp: "昭和・刷り物", sys: "ご当地・味",
+  blurb: "生成り紙地に2色リソ（朱＋青緑）。ハーフトーン、オフセット影。",
+  mood: "商店街の刷り物・回覧板。手ざわりのある懐かしさ。",
+  fonts: "Reggae One（見出し）＋ Zen Kaku Gothic New（700/900）",
+  chips: [["紙","#f3e9d6"],["朱","#e0503a"],["青緑","#1c7d74"],["墨","#2b2622"]],
+  pro: ["ひと目で“ご当地・手作り感”。記憶に残る", "写真が弱くても味として成立", "ポスター・チラシ的展開がしやすい"],
+  con: ["情報サイトとしての“今っぽさ・信頼感”は弱め", "多用すると読みにくく、装飾過多に見えやすい"],
+  h: 690,
+  fontLink: "https://fonts.googleapis.com/css2?family=Reggae+One&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap",
+  css: [
+    'body{font-family:"Zen Kaku Gothic New",system-ui,sans-serif;color:#2b2622;background:#f3e9d6;background-image:radial-gradient(rgba(43,38,34,.10) 1px,transparent 1.4px);background-size:7px 7px}',
+    '.m-head{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;background:#f3e9d6;border-bottom:3px solid #e0503a;box-shadow:0 4px 0 -1px #1c7d74}',
+    '.m-logo{font-weight:900;font-size:15px;display:flex;align-items:center;gap:8px}',
+    '.m-mark{width:12px;height:12px;background:#e0503a;display:block;box-shadow:2px 2px 0 #1c7d74}',
+    '.m-nav{font-size:10.5px;font-weight:700;color:#5b524a}',
+    '.m-hero{padding:26px 18px}',
+    '.m-eyebrow{font-size:11px;font-weight:900;letter-spacing:.14em;color:#1c7d74}',
+    '.m-title{font-family:"Reggae One",system-ui,sans-serif;font-size:30px;color:#e0503a;line-height:1.3;margin:4px 0 8px;text-shadow:3px 3px 0 #1c7d74}',
+    '.m-sub{font-size:12px;font-weight:700;color:#5b524a}',
+    '.m-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}',
+    '.m-tags span{font-size:11px;font-weight:900;color:#1c7d74;border:2px solid #1c7d74;padding:1px 9px}',
+    '.m-filter{display:flex;gap:8px;flex-wrap:wrap;padding:2px 18px 10px}',
+    '.m-filter span{font-size:11px;font-weight:900;color:#e0503a;border:2px solid #e0503a;padding:4px 11px;box-shadow:3px 3px 0 rgba(224,80,58,.3)}',
+    '.m-filter .on{background:#e0503a;color:#f3e9d6}',
+    '.m-label{font-size:11px;font-weight:900;letter-spacing:.14em;color:#5b524a;padding:2px 18px 0}',
+    '.m-grid{grid-template-columns:repeat(3,1fr);gap:22px;padding:14px 18px 24px}',
+    '.card{background:#f3e9d6;border:2px solid #2b2622;box-shadow:5px 5px 0 rgba(43,38,34,.85)}',
+    '.card-photo{aspect-ratio:16/10;background:linear-gradient(135deg,#e0503a,#1c7d74)}',
+    '.card-photo::after{content:"";position:absolute;inset:0;background:radial-gradient(rgba(243,233,214,.5) 1px,transparent 1.6px);background-size:6px 6px;mix-blend-mode:screen}',
+    '.card-badge{background:#1c7d74;color:#f3e9d6;font-size:10px;font-weight:900;padding:2px 7px}',
+    '.card-date{background:#f3e9d6;color:#e0503a;font-size:10px;font-weight:900;padding:1px 6px;border:1px solid #2b2622}',
+    '.card-body{padding:9px 11px 12px}',
+    '.card-name{font-size:14px;font-weight:900;line-height:1.4}',
+    '.card-sum{display:none}'
+  ].join("\n")
+},
+{
+  id: "d10", name: "Festival Pop 祭り／屋台", jp: "にぎやか", sys: "最もご当地",
+  blurb: "高彩度の多色・丸ゴシック・太アウトライン・ステッカー風。",
+  mood: "屋台とちょうちん。家族で見て“行きたい！”となる高揚感。",
+  fonts: "M PLUS Rounded 1c（700/800）＋ Yusei Magic",
+  chips: [["地","#fff4e6"],["赤","#e5352b"],["黄","#ffc531"],["青","#2f9fd0"],["墨","#2a2018"]],
+  pro: ["いちばん“わくわく”。子ども連れに強い", "現行の賑やか路線を突き詰めた形", "夏祭り・花火・グルメと空気が合う"],
+  con: ["硬い催し（展示・講座）には過剰に見える", "多色・太線で情報が読みにくくなりやすい"],
+  h: 690,
+  fontLink: "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Yusei+Magic&display=swap",
+  css: [
+    'body{font-family:"M PLUS Rounded 1c",system-ui,sans-serif;color:#2a2018;background:#fff4e6}',
+    '.m-head{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;background:#fff;border-bottom:4px solid #2a2018}',
+    '.m-logo{font-weight:800;font-size:15px;display:flex;align-items:center;gap:8px}',
+    '.m-mark{width:18px;height:18px;border-radius:50%;background:#e5352b;border:2px solid #2a2018;display:block}',
+    '.m-nav{font-size:10.5px;font-weight:700;color:#7a6a58}',
+    '.m-hero{position:relative;padding:26px 18px 22px;background:linear-gradient(135deg,#ffd9b0,#ffe6d0)}',
+    '.m-hero::before{content:"";position:absolute;left:0;right:0;top:0;height:14px;background:repeating-linear-gradient(90deg,#e5352b 0 22px,#ffc531 22px 44px,#2f9fd0 44px 66px,#3fa65a 66px 88px)}',
+    '.m-eyebrow{font-size:11px;font-weight:800;letter-spacing:.1em;color:#e5352b;margin-top:8px}',
+    '.m-title{font-size:27px;font-weight:800;margin:4px 0 6px;-webkit-text-stroke:2px #2a2018;text-shadow:3px 3px 0 #ffc531}',
+    '.m-sub{font-family:"Yusei Magic",system-ui,sans-serif;font-size:12.5px;color:#5a4a38}',
+    '.m-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}',
+    '.m-tags span{font-size:11px;font-weight:800;border:2px solid #2a2018;padding:2px 10px;border-radius:999px;background:#fff}',
+    '.m-tags span:nth-child(1){background:#ffd7d4}',
+    '.m-tags span:nth-child(2){background:#fff0c2}',
+    '.m-tags span:nth-child(3){background:#d3ecf7}',
+    '.m-tags span:nth-child(4){background:#d8efdd}',
+    '.m-tags span:nth-child(5){background:#efe3f7}',
+    '.m-filter{display:flex;gap:8px;flex-wrap:wrap;padding:12px 18px}',
+    '.m-filter span{font-size:12px;font-weight:800;border:2px solid #2a2018;padding:5px 12px;border-radius:999px;background:#fff}',
+    '.m-filter .on{background:#e5352b;color:#fff;transform:rotate(-1.5deg)}',
+    '.m-label{font-size:12px;font-weight:800;color:#7a6a58;padding:2px 18px 0}',
+    '.m-grid{grid-template-columns:repeat(3,1fr);gap:18px;padding:12px 18px 24px}',
+    '.card{background:#fff;border:3px solid #2a2018;border-radius:18px;box-shadow:5px 5px 0 #2a2018}',
+    '.card-photo{border-radius:14px 14px 0 0}',
+    '.card-badge{background:#ffc531;color:#2a2018;font-size:10.5px;font-weight:800;padding:2px 9px;border-radius:999px;border:2px solid #2a2018}',
+    '.card-date{background:#e5352b;color:#fff;font-size:10.5px;font-weight:800;padding:2px 9px;border-radius:999px;border:2px solid #2a2018}',
+    '.card-body{padding:10px 12px 13px}',
+    '.card-name{font-size:14.5px;font-weight:800;line-height:1.4}',
+    '.card-sum{font-size:11.5px;color:#7a6a58;margin-top:4px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}'
+  ].join("\n")
+}
+];
+
+/* ---------- 描画 ---------- */
+function frameDoc(dir) {
+  return (
+    '<!doctype html><html lang="ja"><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+    (dir.fontLink ? '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="' + dir.fontLink + '">' : '') +
+    '<style>' + RESET + '\n' + dir.css + '</style></head><body>' + SKELETON + '</body></html>'
+  );
+}
+
+const indexBody = document.getElementById("indexBody");
+const gallery = document.getElementById("gallery");
+
+DIRECTIONS.forEach(function (dir, i) {
+  const n = i + 1;
+
+  const tr = document.createElement("tr");
+  tr.innerHTML =
+    '<td>' + n + '</td>' +
+    '<td><a href="#' + dir.id + '">' + dir.name + '</a> <span class="sys">/ ' + dir.jp + '</span></td>' +
+    '<td class="sys">' + dir.sys + '</td>' +
+    '<td>' + dir.blurb + '</td>';
+  indexBody.appendChild(tr);
+
+  const chips = dir.chips.map(function (c) {
+    return '<div class="spec__chip"><div class="spec__sw" style="background:' + c[1] + '"></div>' +
+           '<span class="spec__hex">' + c[0] + '</span></div>';
+  }).join("");
+  const pro = dir.pro.map(function (x) { return '<li>' + x + '</li>'; }).join("");
+  const con = dir.con.map(function (x) { return '<li>' + x + '</li>'; }).join("");
+
+  const sec = document.createElement("section");
+  sec.className = "dir";
+  sec.id = dir.id;
+  sec.innerHTML =
+    '<div class="dir__head">' +
+      '<span class="dir__num">' + n + '</span>' +
+      '<div><h2 class="dir__title">' + dir.name + '<span>' + dir.jp + '</span></h2>' +
+      '<p class="dir__mood">' + dir.mood + '</p></div>' +
+    '</div>' +
+    '<div class="dir__grid">' +
+      '<aside class="spec">' +
+        '<div class="spec__chips">' + chips + '</div>' +
+        '<dl><dt>系統</dt><dd>' + dir.sys + '</dd><dt>書体</dt><dd>' + dir.fonts + '</dd></dl>' +
+        '<h4 class="pro">向いている</h4><ul>' + pro + '</ul>' +
+        '<h4 class="con">注意</h4><ul>' + con + '</ul>' +
+      '</aside>' +
+      '<div class="frame-wrap"><iframe class="frame" loading="lazy" title="' + dir.name + ' モックアップ" style="height:' + dir.h + 'px"></iframe></div>' +
+    '</div>';
+  gallery.appendChild(sec);
+
+  const frame = sec.querySelector("iframe.frame");
+  frame.srcdoc = frameDoc(dir);
+});
+</script>

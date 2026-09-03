@@ -73,8 +73,8 @@ jobs:
           mkdir -p _site
           rsync -a \
             --exclude='.git' --exclude='.github' --exclude='.claude' \
-            --exclude='crawler' --exclude='node_modules' \
-            --exclude='README.md' --exclude='.gitignore' \
+            --exclude='crawler' --exclude='design' --exclude='node_modules' \
+            --exclude='README.md' --exclude='.gitignore' --exclude='.gitattributes' \
             ./ _site/
 
       - uses: actions/configure-pages@v5
