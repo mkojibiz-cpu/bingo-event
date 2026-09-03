@@ -51,8 +51,9 @@ export function normalizeEvent(raw, { areaHint = null, today = new Date() } = {}
   if (endDate === date) endDate = null;
   if (!dateText) dateText = toDateText(date, endDate);
 
-  const area =
-    areaHint || detectArea(name, raw.venue, raw.address, raw.summary, raw.description);
+  // エリア判定は「名称・会場・住所」だけで行う。
+  // 要約/本文は観光コピーで地名がゆるく出てくる（例:「瀬戸内海」）ため使わない。
+  const area = areaHint || detectArea(name, raw.venue, raw.address);
   if (!area) return null;
 
   const event = {

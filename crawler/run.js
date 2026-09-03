@@ -38,7 +38,7 @@ async function crawlSource(source, today) {
     }
     const html = await fetchText(listUrl);
     const $ = cheerio.load(html);
-    for (const u of source.collectDetailLinks($, listUrl)) detailUrls.add(u);
+    for (const u of source.collectDetailLinks($, listUrl, html)) detailUrls.add(u);
   }
 
   const events = [];

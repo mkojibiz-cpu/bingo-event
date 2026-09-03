@@ -5,33 +5,18 @@
  * robots.txt と利用規約を確認すること（詳しくは _template.js のコメント）。
  *
  * サイトが JSON-LD(Event 構造化データ) を出しているなら jsonLdSource が手軽。
- * そうでなければ _template.js をコピーして CSS セレクタで抽出する。
+ * そうでなければ _template.js をコピーして CSS セレクタ／埋め込みJSON で抽出する。
  *
  * 壊れたサイトを一時停止したいときは、その要素を配列から外す（コメントアウト）だけでよい。
  */
-import { jsonLdSource } from "./jsonld.js";
+import diveHiroshima from "./dive-hiroshima.js";
+// import { jsonLdSource } from "./jsonld.js";
 
 export const sources = [
-  // ── 有効化の例（URL とリンクパターンを実サイトに合わせてから外す）──────────
-  //
-  // jsonLdSource({
-  //   name: "福山観光ナビ イベント",
-  //   listUrls: ["https://www.fukuyama-kanko.com/events"],
-  //   detailLinkPattern: /\/events\/[0-9]+/,
-  //   areaHint: null,
-  // }),
-  //
-  // jsonLdSource({
-  //   name: "かさおか観光ポータル イベント",
-  //   listUrls: ["https://www.kasaoka-kanko.jp/event/"],
-  //   detailLinkPattern: /\/event\/[^/]+\/?$/,
-  //   areaHint: "笠岡",
-  // }),
-  //
-  // jsonLdSource({
-  //   name: "おのみち観光協会 イベント",
-  //   listUrls: ["https://www.ononavi.jp/event/"],
-  //   detailLinkPattern: /\/event\/[0-9]+/,
-  //   areaHint: "尾道",
-  // }),
+  diveHiroshima,
+
+  // ── 追加候補（未接続）────────────────────────────────────────────
+  // ・まいぷれ福山 https://fukuyama.mypl.net/event/  … robots は許可だが
+  //   Crawl-delay: 90 秒。fetch.js に crawl-delay 対応を足してから接続する。
+  // ・福山市公式「えっと福山」/ 各市の観光協会 … 構造化データが無く要個別実装。
 ];
