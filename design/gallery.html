@@ -150,6 +150,13 @@ const EVENTS = [
   { name: "ばらのまち福山国際音楽祭",     area: "福山", date: "9/19〜23", sum: "市内各所で5日間の公演とワークショップ。", h: 200 },
 ];
 
+/* 新着イベント欄に出す3件（見立て：本日入荷 / 電光掲示板） */
+const NEW = [
+  { area: "府中", date: "9/13",   name: "府中焼きグランプリ" },
+  { area: "福山", date: "9/19〜",  name: "ばらのまち福山国際音楽祭" },
+  { area: "笠岡", date: "10/10〜", name: "笠岡諸島アートフェスティバル" },
+];
+
 /* 密度を見せたい案（潮見表）でだけ使う追加ぶん */
 const EXTRA = [
   { name: "鞆の浦弁天島花火大会",     area: "福山", date: "5/23",   sum: "海上の弁天島から約2,000発。",   h: 350 },
@@ -177,6 +184,26 @@ function cardsHtml(list) {
   }).join("");
 }
 
+function newHtml() {
+  return (
+    '<section class="m-new">' +
+      '<p class="m-new__label">新着イベント</p>' +
+      '<div class="m-new__list">' +
+      NEW.map(function (e) {
+        return (
+          '<a class="m-new__item" href="#">' +
+            '<span class="m-new__flag">NEW</span>' +
+            '<span class="m-new__date">' + e.date + '</span>' +
+            '<span class="m-new__area">' + e.area + '</span>' +
+            '<span class="m-new__name">' + e.name + '</span>' +
+          '</a>'
+        );
+      }).join("") +
+      '</div>' +
+    '</section>'
+  );
+}
+
 function skeleton(list) {
   return (
     '<div class="mock">' +
@@ -190,6 +217,7 @@ function skeleton(list) {
         '<p class="m-sub">お祭り・花火・展示・マルシェを毎日更新</p>' +
         '<div class="m-tags"><span>福山</span><span>笠岡</span><span>尾道</span><span>府中</span><span>神辺</span></div>' +
       '</div></section>' +
+      newHtml() +
       '<div class="m-filter"><span class="on">すべて</span><span>福山</span><span>笠岡</span><span>尾道</span><span>府中</span><span>神辺</span></div>' +
       '<p class="m-label">開催が近い順</p>' +
       '<div class="m-grid">' + cardsHtml(list) + '</div>' +
@@ -208,7 +236,15 @@ const RESET = [
   '.card-photo{position:relative;aspect-ratio:16/10;background:linear-gradient(140deg,hsl(var(--h) 55% 60%),hsl(calc(var(--h) + 42) 58% 45%))}',
   '.card-badge{position:absolute;top:8px;left:8px}',
   '.card-date{position:absolute;left:8px;bottom:8px}',
-  '.m-nav{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
+  '.m-nav{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
+  '.m-new{padding:14px 20px 2px}',
+  '.m-new__label{font-size:12px;font-weight:700;margin:0 0 8px}',
+  '.m-new__list{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}',
+  '.m-new__item{display:flex;flex-direction:column;gap:2px;padding:10px;border:1px solid #ddd;border-radius:8px;text-decoration:none;color:inherit;font-size:12px}',
+  '.m-new__flag{font-size:9px;font-weight:800;color:#c8202a;letter-spacing:.06em}',
+  '.m-new__date{font-weight:700}',
+  '.m-new__area{color:#777;font-size:11px}',
+  '.m-new__name{font-weight:700;line-height:1.35}'
 ].join("\n");
 
 /* ---------- 5案 ---------- */
@@ -221,7 +257,7 @@ const DIRECTIONS = [
   chips: [["壁","#e9e0cd"],["紙","#fffdf6"],["画鋲","#c8443a"],["判子","#2f6b5e"],["墨","#33302a"]],
   pro: ["“地元の人が回している”親しみが一目で伝わる", "写真が弱くても貼り紙として成立する", "他のイベントサイトと絶対に被らない"],
   con: ["やり過ぎるとチープに見える。傾き・影は控えめに", "情報量の多い日は雑然としやすい"],
-  h: 680,
+  h: 765,
   fontLink: "https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap",
   css: [
     'body{font-family:"Zen Kaku Gothic New",system-ui,sans-serif;color:#33302a;background:#e9e0cd;background-image:radial-gradient(rgba(120,105,75,.13) 1px,transparent 1.5px);background-size:9px 9px}',
@@ -249,7 +285,16 @@ const DIRECTIONS = [
     '.card-date{left:12px;bottom:12px;background:#fffdf6;color:#c8443a;font-size:10px;font-weight:700;padding:1px 6px}',
     '.card-body{padding:9px 6px 3px}',
     '.card-name{font-family:"Klee One",serif;font-weight:600;font-size:14px;line-height:1.45}',
-    '.card-sum{font-size:11px;color:#6a6350;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}'
+    '.card-sum{font-size:11px;color:#6a6350;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}',
+    '.m-new{padding:6px 22px 0}',
+    '.m-new__label{font-family:"Klee One",serif;font-weight:600;font-size:13px;color:#c8443a;margin:0 0 8px;display:inline-block;border-bottom:2px solid #c8443a}',
+    '.m-new__list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}',
+    '.m-new__item{position:relative;background:#fffdf6;border:1px solid #e6dcc3;padding:10px;box-shadow:1px 2px 6px rgba(60,50,30,.14);text-decoration:none;color:inherit;font-size:11px;transform:rotate(-.6deg)}',
+    '.m-new__item:nth-child(2){transform:rotate(.7deg)}',
+    '.m-new__flag{font-size:8.5px;font-weight:700;color:#2f6b5e}',
+    '.m-new__date{font-weight:700;color:#c8443a;font-size:12px}',
+    '.m-new__area{color:#7a7053;font-size:10px}',
+    '.m-new__name{font-family:"Klee One",serif;font-weight:600;line-height:1.4;margin-top:2px}'
   ].join("\n")
 },
 {
@@ -260,7 +305,7 @@ const DIRECTIONS = [
   chips: [["標本紙","#f4efe4"],["草","#4a5d3f"],["ばら","#a83f54"],["セピア","#c9b79a"],["墨","#2b2a26"]],
   pro: ["“ばらのまち”の固有性が上品に出る", "行政・文化・観光いずれにも品よく馴染む", "静かで、写真が少なくても間が持つ"],
   con: ["華やかさ・スピード感は出ない", "明朝＋伊字体は小サイズの可読性に注意"],
-  h: 690,
+  h: 775,
   fontLink: "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=EB+Garamond:ital@1&family=Zen+Kaku+Gothic+New:wght@400&display=swap",
   css: [
     'body{font-family:"Zen Kaku Gothic New",system-ui,sans-serif;color:#2b2a26;background:#f4efe4;line-height:1.85}',
@@ -285,18 +330,26 @@ const DIRECTIONS = [
     '.card-body{padding:12px 12px 14px}',
     '.card-body::before{content:"\\2116 " counter(sp,decimal-leading-zero);font-family:"EB Garamond",serif;font-style:italic;font-size:12px;color:#a83f54;display:block;margin-bottom:2px}',
     '.card-name{font-family:"Shippori Mincho",serif;font-weight:700;font-size:15px;line-height:1.55}',
-    '.card-sum{font-size:11px;color:#7a7461;margin-top:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}'
+    '.card-sum{font-size:11px;color:#7a7461;margin-top:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}',
+    '.m-new{padding:10px 26px 0}',
+    '.m-new__label{font-family:"EB Garamond",serif;font-style:italic;font-size:13px;color:#a83f54;margin:0 0 8px}',
+    '.m-new__list{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}',
+    '.m-new__item{border-top:1px solid #a83f54;padding-top:8px;text-decoration:none;color:inherit;font-size:11px}',
+    '.m-new__flag{font-family:"EB Garamond",serif;font-style:italic;font-size:11px;color:#4a5d3f;letter-spacing:.04em}',
+    '.m-new__date{font-family:"EB Garamond",serif;font-style:italic;color:#a83f54;font-size:12px}',
+    '.m-new__area{color:#7a7461;font-size:10px}',
+    '.m-new__name{font-family:"Shippori Mincho",serif;font-weight:700;line-height:1.5;margin-top:3px}'
   ].join("\n")
 },
 {
   id: "d3", name: "潮見表", jp: "Setouchi Timetable", sys: "実用・端正・港町",
-  blurb: "港の時刻表の見立て。多列のコンパクト表で1画面に十数件を俯瞰。",
-  mood: "瀬戸内フェリーの時刻表。上に海の帯、下は写真＋時刻の小さな行を3列に。全体をパッと見渡せる。",
+  blurb: "港の時刻表の見立て。新着は電光掲示板、下は3列コンパクト表で全体を俯瞰。",
+  mood: "瀬戸内フェリーの時刻表。海の帯 → 新着イベントの電光掲示板 → 写真＋時刻の小さな行を3列に。全体をパッと見渡せる。",
   fonts: "Zen Kaku Gothic New ＋ Roboto Mono（数字）",
   chips: [["図表紙","#f3f1ea"],["紺","#1c3a4b"],["潮","#2f7d84"],["注意","#d4772e"],["罫","#d7d3c6"]],
   pro: ["3列のコンパクト表で1画面に十数件。俯瞰性はグリッド並み", "いつ・どこが最速で読める。時間軸と相性◎", "件数が増えても崩れない・淡々として信頼感"],
   con: ["1件あたりの写真は小さい（大きく見せるのは詳細ページ側）", "にぎやかさ・情緒は控えめ"],
-  h: 640,
+  h: 730,
   events: EVENTS.concat(EXTRA),
   fontLink: "https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Roboto+Mono:wght@400;500&display=swap",
   css: [
@@ -331,7 +384,15 @@ const DIRECTIONS = [
     '.card-date{left:0;right:0;bottom:0;text-align:center;background:#1c3a4b;color:#eef1ee;font-family:"Roboto Mono",monospace;font-size:7.5px;font-weight:500;letter-spacing:.02em;padding:1px 0}',
     '.card-body{min-width:0}',
     '.card-name{font-size:11.5px;font-weight:700;line-height:1.32;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}',
-    '.card-sum{display:none}'
+    '.card-sum{display:none}',
+    '.m-new{padding:0;margin:0 20px 4px}',
+    '.m-new__label{font-family:"Roboto Mono",monospace;font-size:9.5px;letter-spacing:.14em;color:#4b6675;padding:10px 0 6px}',
+    '.m-new__list{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#1c3a4b;border:1px solid #1c3a4b}',
+    '.m-new__item{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:7px;background:#1c3a4b;color:#eef1ee;padding:7px 9px;text-decoration:none;font-size:11px}',
+    '.m-new__flag{font-family:"Roboto Mono",monospace;font-size:8px;font-weight:700;color:#1c3a4b;background:#e8b64a;padding:0 4px;letter-spacing:.05em}',
+    '.m-new__date{font-family:"Roboto Mono",monospace;font-size:12px;color:#8fd0d6;letter-spacing:.03em}',
+    '.m-new__area{display:none}',
+    '.m-new__name{font-weight:700;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
   ].join("\n")
 },
 {
@@ -342,7 +403,7 @@ const DIRECTIONS = [
   chips: [["夜","#141017"],["灯","#ffd38a"],["琥珀","#f0a33a"],["朱","#d1432f"],["墨字","#3a2a1c"]],
   pro: ["花火・イルミ・夜市・ライトアップが主役になる", "実写が入ると一気に情感が増す", "強い個性で記憶に残る"],
   con: ["昼の催し・展示・講座はやや冷たく見える", "ダーク固定＝万人向けではない。可読性の調整必須"],
-  h: 670,
+  h: 755,
   fontLink: "https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Klee+One:wght@600&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap",
   css: [
     'body{font-family:"Zen Kaku Gothic New",system-ui,sans-serif;color:#f3e4cf;background:#141017}',
@@ -370,7 +431,15 @@ const DIRECTIONS = [
     '.card-date{left:10px;bottom:10px;background:#1c1610;color:#ffcf8a;font-size:10px;font-weight:700;padding:1px 7px;border-radius:999px}',
     '.card-body{padding:10px 13px 14px;text-align:center}',
     '.card-name{font-family:"Klee One",serif;font-weight:600;font-size:14.5px;line-height:1.45;color:#3a2416}',
-    '.card-sum{font-size:11px;color:#7a5a3c;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}'
+    '.card-sum{font-size:11px;color:#7a5a3c;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}',
+    '.m-new{padding:8px 22px 0}',
+    '.m-new__label{font-size:11px;letter-spacing:.16em;color:#f0a33a;margin:0 0 8px}',
+    '.m-new__list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}',
+    '.m-new__item{display:flex;flex-direction:column;gap:2px;background:linear-gradient(180deg,#fff0d6,#ffd89a);color:#3a2a1c;border-radius:10px/16px;padding:9px 11px;text-decoration:none;box-shadow:0 0 16px rgba(240,163,58,.28);font-size:11px}',
+    '.m-new__flag{font-size:8.5px;font-weight:800;color:#d1432f;letter-spacing:.06em}',
+    '.m-new__date{font-weight:800;color:#8a4a1c;font-size:12px}',
+    '.m-new__area{color:#7a5a3c;font-size:10px}',
+    '.m-new__name{font-family:"Klee One",serif;font-weight:600;line-height:1.4;margin-top:1px}'
   ].join("\n")
 },
 {
@@ -381,7 +450,7 @@ const DIRECTIONS = [
   chips: [["わら半紙","#f2ede1"],["黒","#1a1714"],["リソ桃","#ff4d88"],["リソ青","#2b56c8"],["黄","#ffe14d"]],
   pro: ["勢いと親しみ。若年層・ファミリーが手に取りたくなる", "情報が多い日ほど“新聞感”が活きる", "現行の賑やか路線とは別ベクトルの元気"],
   con: ["硬い催し（展示・講座・行政告知）には軽すぎる", "多色・極太で可読性が落ちやすい。使い所を絞る"],
-  h: 650,
+  h: 735,
   fontLink: "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Zen+Kaku+Gothic+New:wght@500;900&display=swap",
   css: [
     'body{font-family:"Zen Kaku Gothic New",system-ui,sans-serif;color:#1a1714;background:#f2ede1}',
@@ -410,7 +479,15 @@ const DIRECTIONS = [
     '.card-date{left:auto;right:6px;bottom:6px;font-family:"Bebas Neue",sans-serif;font-size:14px;color:#fff;background:#1a1714;padding:0 6px}',
     '.card-body{padding:9px 11px 12px}',
     '.card-name{font-weight:900;font-size:14.5px;line-height:1.32}',
-    '.card-sum{font-size:11px;color:#5a5348;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}'
+    '.card-sum{font-size:11px;color:#5a5348;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}',
+    '.m-new{padding:10px 18px 0}',
+    '.m-new__label{font-family:"Bebas Neue",sans-serif;font-size:15px;letter-spacing:.14em;color:#1a1714;background:#ffe14d;display:inline-block;padding:0 8px;margin:0 0 8px}',
+    '.m-new__list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}',
+    '.m-new__item{display:flex;flex-direction:column;gap:2px;border:2px solid #1a1714;background:#fbf7ec;padding:8px 10px;text-decoration:none;color:inherit;font-size:11px}',
+    '.m-new__flag{font-family:"Bebas Neue",sans-serif;font-size:12px;letter-spacing:.06em;color:#fff;background:#ff4d88;padding:0 5px;align-self:flex-start}',
+    '.m-new__date{font-family:"Bebas Neue",sans-serif;font-size:15px;color:#2b56c8}',
+    '.m-new__area{display:none}',
+    '.m-new__name{font-weight:900;line-height:1.28;margin-top:2px}'
   ].join("\n")
 }
 ];
