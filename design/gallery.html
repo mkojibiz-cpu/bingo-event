@@ -150,8 +150,18 @@ const EVENTS = [
   { name: "ばらのまち福山国際音楽祭",     area: "福山", date: "9/19〜23", sum: "市内各所で5日間の公演とワークショップ。", h: 200 },
 ];
 
-function cardsHtml() {
-  return EVENTS.map(function (e) {
+/* 密度を見せたい案（潮見表）でだけ使う追加ぶん */
+const EXTRA = [
+  { name: "鞆の浦弁天島花火大会",     area: "福山", date: "5/23",   sum: "海上の弁天島から約2,000発。",   h: 350 },
+  { name: "千光寺公園 桜まつり",      area: "尾道", date: "3/28〜",  sum: "尾道水道を望む丘に約1,500本。", h: 330 },
+  { name: "笠岡港まつり 花火大会",     area: "笠岡", date: "8/1",    sum: "笠岡湾に約5,000発。",           h: 210 },
+  { name: "神辺本陣 菊花展",          area: "神辺", date: "11/8〜",  sum: "旧本陣で菊花愛好家の展示。",    h: 95  },
+  { name: "城下町ナイトマーケット",    area: "福山", date: "4/11",   sum: "福山城公園でキッチンカーの夜市。", h: 275 },
+  { name: "尾道ベッチャー祭り",       area: "尾道", date: "11/3",   sum: "鬼の面をつけた三鬼神が練り歩く。", h: 12  },
+];
+
+function cardsHtml(list) {
+  return (list || EVENTS).map(function (e) {
     return (
       '<article class="card">' +
         '<div class="card-photo" style="--h:' + e.h + '">' +
@@ -167,22 +177,25 @@ function cardsHtml() {
   }).join("");
 }
 
-const SKELETON =
-  '<div class="mock">' +
-    '<header class="m-head">' +
-      '<div class="m-logo"><span class="m-mark"></span><span>びんごイベントナビ</span></div>' +
-      '<div class="m-nav">福山・笠岡・尾道・府中・神辺</div>' +
-    '</header>' +
-    '<section class="m-hero"><div class="m-hero-in">' +
-      '<p class="m-eyebrow">備後・福山エリア</p>' +
-      '<h1 class="m-title">この週末、どこ行く？</h1>' +
-      '<p class="m-sub">お祭り・花火・展示・マルシェを毎日更新</p>' +
-      '<div class="m-tags"><span>福山</span><span>笠岡</span><span>尾道</span><span>府中</span><span>神辺</span></div>' +
-    '</div></section>' +
-    '<div class="m-filter"><span class="on">すべて</span><span>福山</span><span>笠岡</span><span>尾道</span><span>府中</span><span>神辺</span></div>' +
-    '<p class="m-label">開催が近い順</p>' +
-    '<div class="m-grid">' + cardsHtml() + '</div>' +
-  '</div>';
+function skeleton(list) {
+  return (
+    '<div class="mock">' +
+      '<header class="m-head">' +
+        '<div class="m-logo"><span class="m-mark"></span><span>びんごイベントナビ</span></div>' +
+        '<div class="m-nav">福山・笠岡・尾道・府中・神辺</div>' +
+      '</header>' +
+      '<section class="m-hero"><div class="m-hero-in">' +
+        '<p class="m-eyebrow">備後・福山エリア</p>' +
+        '<h1 class="m-title">この週末、どこ行く？</h1>' +
+        '<p class="m-sub">お祭り・花火・展示・マルシェを毎日更新</p>' +
+        '<div class="m-tags"><span>福山</span><span>笠岡</span><span>尾道</span><span>府中</span><span>神辺</span></div>' +
+      '</div></section>' +
+      '<div class="m-filter"><span class="on">すべて</span><span>福山</span><span>笠岡</span><span>尾道</span><span>府中</span><span>神辺</span></div>' +
+      '<p class="m-label">開催が近い順</p>' +
+      '<div class="m-grid">' + cardsHtml(list) + '</div>' +
+    '</div>'
+  );
+}
 
 const RESET = [
   '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}',
@@ -277,47 +290,48 @@ const DIRECTIONS = [
 },
 {
   id: "d3", name: "潮見表", jp: "Setouchi Timetable", sys: "実用・端正・港町",
-  blurb: "港の時刻表の見立て。写真は左の大きめプレート＋時刻スタンプで前面に。",
-  mood: "瀬戸内フェリーの時刻表。上に海の帯、各行は写真プレートに時刻を刻印。数字は等幅、行は罫線。",
+  blurb: "港の時刻表の見立て。多列のコンパクト表で1画面に十数件を俯瞰。",
+  mood: "瀬戸内フェリーの時刻表。上に海の帯、下は写真＋時刻の小さな行を3列に。全体をパッと見渡せる。",
   fonts: "Zen Kaku Gothic New ＋ Roboto Mono（数字）",
   chips: [["図表紙","#f3f1ea"],["紺","#1c3a4b"],["潮","#2f7d84"],["注意","#d4772e"],["罫","#d7d3c6"]],
-  pro: ["写真がしっかり入っても“時刻表の整然さ”が保てる", "いつ・どこが最速で読める。時間軸と相性◎", "件数が増えても崩れない"],
-  con: ["情緒・にぎやかさは控えめ", "横長プレートなので縦写真は自動トリミング前提"],
-  h: 780,
+  pro: ["3列のコンパクト表で1画面に十数件。俯瞰性はグリッド並み", "いつ・どこが最速で読める。時間軸と相性◎", "件数が増えても崩れない・淡々として信頼感"],
+  con: ["1件あたりの写真は小さい（大きく見せるのは詳細ページ側）", "にぎやかさ・情緒は控えめ"],
+  h: 640,
+  events: EVENTS.concat(EXTRA),
   fontLink: "https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Roboto+Mono:wght@400;500&display=swap",
   css: [
     'body{font-family:"Zen Kaku Gothic New",system-ui,sans-serif;color:#1c3a4b;background:#f3f1ea}',
-    '.m-head{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;background:#1c3a4b;color:#eef1ee}',
+    '.m-head{display:flex;justify-content:space-between;align-items:center;padding:9px 18px;background:#1c3a4b;color:#eef1ee}',
     '.m-logo{font-weight:700;font-size:14px;letter-spacing:.04em;display:flex;align-items:center;gap:9px}',
     '.m-mark{width:14px;height:3px;background:#2f7d84;box-shadow:0 5px 0 #2f7d84,0 10px 0 #2f7d84;display:block}',
     '.m-nav{font-family:"Roboto Mono",monospace;font-size:10px;opacity:.85}',
-    '.m-hero{position:relative;padding:0 20px 10px;background:linear-gradient(180deg,#cfe0e6,#8fb3bc 52%,#367782)}',
-    '.m-hero::after{content:"";position:absolute;left:0;right:0;top:42%;height:1px;background:rgba(255,255,255,.6)}',
-    '.m-hero-in{position:relative;background:rgba(243,241,234,.93);border:1px solid #b9c3bd;margin-top:18px;padding:14px 16px}',
-    '.m-eyebrow{font-family:"Roboto Mono",monospace;font-size:11px;letter-spacing:.12em;color:#2f7d84}',
-    '.m-title{font-size:21px;font-weight:700;margin:5px 0 8px}',
-    '.m-sub{font-size:12px;color:#4b6675}',
-    '.m-tags{position:relative;display:block;height:32px;margin-top:12px;border:1px solid #cfcabb;background:repeating-linear-gradient(90deg,transparent 0 calc(100%/15 - 1px),#d7d3c6 calc(100%/15 - 1px) calc(100%/15))}',
-    '.m-tags span{position:absolute;bottom:4px;font-family:"Roboto Mono",monospace;font-size:8px;color:#1c3a4b;background:#f3f1ea;padding:0 3px}',
+    '.m-hero{position:relative;padding:0 20px 8px;background:linear-gradient(180deg,#cfe0e6,#8fb3bc 52%,#367782)}',
+    '.m-hero::after{content:"";position:absolute;left:0;right:0;top:40%;height:1px;background:rgba(255,255,255,.6)}',
+    '.m-hero-in{position:relative;background:rgba(243,241,234,.93);border:1px solid #b9c3bd;margin-top:14px;padding:11px 14px}',
+    '.m-eyebrow{font-family:"Roboto Mono",monospace;font-size:10.5px;letter-spacing:.12em;color:#2f7d84}',
+    '.m-title{font-size:18px;font-weight:700;margin:4px 0 6px}',
+    '.m-sub{font-size:11.5px;color:#4b6675}',
+    '.m-tags{position:relative;display:block;height:26px;margin-top:10px;border:1px solid #cfcabb;background:repeating-linear-gradient(90deg,transparent 0 calc(100%/15 - 1px),#d7d3c6 calc(100%/15 - 1px) calc(100%/15))}',
+    '.m-tags span{position:absolute;bottom:3px;font-family:"Roboto Mono",monospace;font-size:7.5px;color:#1c3a4b;background:#f3f1ea;padding:0 3px}',
     '.m-tags span:nth-child(1){left:7%}',
     '.m-tags span:nth-child(2){left:24%}',
     '.m-tags span:nth-child(3){left:45%}',
     '.m-tags span:nth-child(4){left:63%}',
     '.m-tags span:nth-child(5){left:84%}',
-    '.m-tags span::before{content:"";position:absolute;left:50%;top:-12px;width:6px;height:6px;border-radius:50%;background:#d4772e;transform:translateX(-50%)}',
-    '.m-filter{display:flex;gap:6px;flex-wrap:wrap;padding:12px 20px 6px}',
-    '.m-filter span{font-size:11.5px;font-weight:700;color:#1c3a4b;border:1px solid #1c3a4b;padding:4px 12px}',
+    '.m-tags span::before{content:"";position:absolute;left:50%;top:-11px;width:5px;height:5px;border-radius:50%;background:#d4772e;transform:translateX(-50%)}',
+    '.m-filter{display:flex;gap:6px;flex-wrap:wrap;padding:10px 20px 4px}',
+    '.m-filter span{font-size:11px;font-weight:700;color:#1c3a4b;border:1px solid #1c3a4b;padding:3px 11px}',
     '.m-filter .on{background:#1c3a4b;color:#f3f1ea}',
-    '.m-label{font-family:"Roboto Mono",monospace;font-size:10px;letter-spacing:.1em;color:#4b6675;padding:8px 20px 0}',
-    '.m-grid{grid-template-columns:1fr;gap:0;padding:6px 20px 24px;border-top:2px solid #1c3a4b}',
-    '.card{display:grid;grid-template-columns:124px 1fr;gap:14px;align-items:center;padding:11px 4px;border-bottom:1px solid #cfcabb;overflow:hidden}',
-    '.card-photo{width:124px;aspect-ratio:3/2;height:auto;background:linear-gradient(140deg,hsl(var(--h) 38% 52%),hsl(calc(var(--h) + 28) 40% 30%));box-shadow:inset 0 0 0 999px rgba(28,58,75,.24)}',
-    '.card-photo::after{content:"";position:absolute;left:0;right:0;top:54%;height:1px;background:rgba(255,255,255,.5)}',
-    '.card-badge{top:4px;left:4px;font-family:"Roboto Mono",monospace;font-size:8px;background:rgba(255,255,255,.9);color:#1c3a4b;padding:0 4px}',
-    '.card-date{left:0;right:0;bottom:0;text-align:center;background:#1c3a4b;color:#eef1ee;font-family:"Roboto Mono",monospace;font-size:12px;font-weight:500;letter-spacing:.04em;padding:2px 0}',
-    '.card-body{align-self:center}',
-    '.card-name{font-size:14.5px;font-weight:700;line-height:1.4}',
-    '.card-sum{font-family:"Roboto Mono",monospace;font-size:10px;color:#5b7480;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}'
+    '.m-label{font-family:"Roboto Mono",monospace;font-size:9.5px;letter-spacing:.1em;color:#4b6675;padding:6px 20px 2px}',
+    '.m-grid{grid-template-columns:repeat(3,1fr);gap:0 22px;padding:2px 20px 22px;border-top:2px solid #1c3a4b}',
+    '.card{display:grid;grid-template-columns:52px 1fr;gap:9px;align-items:center;padding:7px 2px;border-bottom:1px solid #cfcabb;overflow:hidden}',
+    '.card-photo{width:52px;aspect-ratio:4/3;height:auto;background:linear-gradient(140deg,hsl(var(--h) 38% 50%),hsl(calc(var(--h) + 26) 40% 30%));box-shadow:inset 0 0 0 999px rgba(28,58,75,.22)}',
+    '.card-photo::after{content:"";position:absolute;left:0;right:0;top:52%;height:1px;background:rgba(255,255,255,.45)}',
+    '.card-badge{display:none}',
+    '.card-date{left:0;right:0;bottom:0;text-align:center;background:#1c3a4b;color:#eef1ee;font-family:"Roboto Mono",monospace;font-size:7.5px;font-weight:500;letter-spacing:.02em;padding:1px 0}',
+    '.card-body{min-width:0}',
+    '.card-name{font-size:11.5px;font-weight:700;line-height:1.32;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}',
+    '.card-sum{display:none}'
   ].join("\n")
 },
 {
@@ -407,7 +421,7 @@ function frameDoc(dir) {
     '<!doctype html><html lang="ja"><head><meta charset="utf-8">' +
     '<meta name="viewport" content="width=device-width, initial-scale=1">' +
     (dir.fontLink ? '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="' + dir.fontLink + '">' : '') +
-    '<style>' + RESET + '\n' + dir.css + '</style></head><body>' + SKELETON + '</body></html>'
+    '<style>' + RESET + '\n' + dir.css + '</style></head><body>' + skeleton(dir.events || EVENTS) + '</body></html>'
   );
 }
 
