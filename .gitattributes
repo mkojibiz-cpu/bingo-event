@@ -1,0 +1,9 @@
+# 改行は LF に統一（Actions のシェルスクリプトや JS の一貫性のため）
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
