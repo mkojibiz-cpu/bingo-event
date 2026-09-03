@@ -19,7 +19,8 @@
   }
   function areaGradient(seed) {
     var h = hashHue(seed || "x");
-    return "linear-gradient(135deg, hsl(" + h + " 55% 58%), hsl(" + ((h + 38) % 360) + " 60% 44%))";
+    // 潮見表デザインに合わせて青緑〜紺の範囲でわずかに振る
+    return "linear-gradient(160deg, hsl(" + (188 + (h % 26)) + " 36% 44%), hsl(" + (200 + (h % 34)) + " 42% 26%))";
   }
   function getParam(name) {
     var m = new RegExp("[?&]" + name + "=([^&]*)").exec(window.location.search);

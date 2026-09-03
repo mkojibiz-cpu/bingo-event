@@ -8,7 +8,7 @@
 
   <!-- 本番ドメインが決まったら、全ファイルの https://bingo-event.example.jp を一括置換 -->
   <link rel="canonical" href="https://bingo-event.example.jp/">
-  <meta name="theme-color" content="#d83a63">
+  <meta name="theme-color" content="#1c3a4b">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
   <meta property="og:type" content="website">
@@ -19,6 +19,8 @@
   <meta property="og:image" content="https://bingo-event.example.jp/assets/img/hero.svg">
   <meta name="twitter:card" content="summary_large_image">
 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -28,36 +30,35 @@
         <span class="site-logo__mark" aria-hidden="true"></span>
         びんごイベントナビ<span class="site-logo__beta">（仮）</span>
       </a>
-      <p class="site-tagline">福山・笠岡・尾道・府中・神辺のおでかけ情報</p>
+      <p class="site-tagline">FUKUYAMA / KASAOKA / ONOMICHI / FUCHU / KANNABE</p>
     </div>
   </header>
 
   <main>
     <div class="container">
-      <!-- ページ上部のキービジュアル -->
-      <section class="hero-banner">
-        <img class="hero-banner__img" src="assets/img/hero.svg"
-             alt="福山城とばら、提灯のキービジュアル">
-        <div class="hero-banner__overlay">
-          <h1 class="hero-banner__title">備後・福山エリアの、おでかけ＆イベント情報</h1>
-          <p class="hero-banner__sub">お祭り・花火・展示・マルシェを毎日チェック<span id="heroCount"></span></p>
-          <div class="hero-tags">
-            <span>福山</span><span>笠岡</span><span>尾道</span><span>府中</span><span>神辺</span>
+      <!-- 海の帯＋時刻表パネル -->
+      <section class="tt-hero">
+        <div class="tt-hero__panel">
+          <p class="tt-hero__eyebrow">BINGO AREA &nbsp;/&nbsp; EVENT TIMETABLE</p>
+          <h1 class="tt-hero__title">備後・福山エリアのイベント発着案内</h1>
+          <p class="tt-hero__sub">お祭り・花火・展示・マルシェを毎日更新<span id="heroCount"></span></p>
+          <div class="tt-monthbar" id="monthbar" aria-hidden="true">
+            <span class="tt-monthbar__caption" id="monthbarCaption"></span>
           </div>
         </div>
       </section>
 
-      <!-- 新着イベント（横3枚） -->
+      <!-- 新着イベント（電光掲示板） -->
       <section class="section">
-        <h2 class="section__title">✨ 新着イベント <span class="section__note">最近見つかった情報</span></h2>
-        <div class="feature-grid" id="featured"></div>
+        <h2 class="section__title">新着イベント <span class="section__note">最近見つかった情報</span></h2>
+        <div class="tt-board" id="featured"></div>
       </section>
 
-      <!-- エリアフィルタ + グリッド -->
+      <!-- エリアフィルタ + 一覧 -->
       <section class="section">
-        <h2 class="section__title">📅 すべてのイベント <span class="section__note">開催日が近い順</span></h2>
+        <h2 class="section__title">すべてのイベント <span class="section__note">開催が近い順</span></h2>
         <div class="filter" id="filter"></div>
-        <div class="event-grid" id="grid"></div>
+        <div class="tt-grid" id="grid"></div>
         <nav class="pager" id="pager" aria-label="ページ送り"></nav>
       </section>
     </div>

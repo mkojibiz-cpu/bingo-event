@@ -1,8 +1,9 @@
 /* ============================================================
-   イベント一覧ページの描画
-   - 新着イベント3件（横並び）
-   - エリアフィルタ
-   - 5×4=20件/ページのグリッド + ページャ
+   イベント一覧ページの描画（デザイン：潮見表）
+   - 月バー（これからのイベントを海図の目盛に配置）
+   - 新着イベント（電光掲示板 3セル）
+   - エリアフィルタ（時刻表タブ）
+   - 3列コンパクト時刻表 + ページャ
    データは data/events.js が定義する window.EVENTS を使用。
    ============================================================ */
 (function () {
@@ -20,30 +21,22 @@
   }
   function hashHue(str) {
     var h = 0;
-    for (var i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
+    for (var i = 0; i < String(str).length; i++) h = (h * 31 + String(str).charCodeAt(i)) >>> 0;
     return h % 360;
   }
-  function areaGradient(seed) {
-    var h = hashHue(seed || "x");
-    return "linear-gradient(135deg, hsl(" + h + " 55% 58%), hsl(" + ((h + 38) % 360) + " 60% 44%))";
-  }
-  // カード写真の日付チップ用に短い日付を作る（例: 5/16、範囲なら 5/16〜）
+  // 短い日付（例: 5/16、範囲なら 5/16〜）
   function shortDate(ev) {
     var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ev.date || "");
     var base = m ? parseInt(m[2], 10) + "/" + parseInt(m[3], 10) : (ev.date || "");
     var ranged = (ev.endDate && ev.endDate !== ev.date) || /[〜～]/.test(ev.dateText || "");
     return ranged ? base + "〜" : base;
   }
-  function photoHtml(ev) {
-    var overlays =
-      '<span class="area-badge">' + esc(ev.area) + "</span>" +
-      '<span class="card-photo__date">📅 ' + esc(shortDate(ev)) + "</span>";
-    if (ev.image) {
-      return '<div class="card-photo">' +
-        '<img src="' + esc(ev.image) + '" alt="' + esc(ev.name) + '">' + overlays + "</div>";
-    }
-    return '<div class="card-photo" style="background:' + areaGradient(ev.id || ev.name) + '">' +
-      overlays + '<span class="card-photo__ph-text">' + esc(ev.name) + "</span></div>";
+  // 一覧行の「写真プレート」（写真＋時刻スタンプ）
+  function plateHtml(ev) {
+    var hue = hashHue(ev.id || ev.name);
+    var stamp = '<span class="tt-row__stamp">' + esc(shortDate(ev)) + "</span>";
+    var img = ev.image ? '<img src="' + esc(ev.image) + '" alt="" loading="lazy">' : "";
+    return '<div class="tt-row__plate" style="--h:' + hue + '">' + img + stamp + "</div>";
   }
 
   // 今日の日付（閲覧者のローカル日付）を YYYY-MM-DD で
@@ -78,19 +71,47 @@
   // グリッドは「新着で出した3件を除いた全件」
   var gridAll = events.filter(function (ev) { return !featuredIds[ev.id]; }).sort(byUpcoming);
 
-  /* ---------- 新着イベント描画 ---------- */
+  /* ---------- 新着イベント（電光掲示板） ---------- */
   function renderFeatured() {
     var box = document.getElementById("featured");
     if (!box) return;
     box.innerHTML = featured.map(function (ev) {
-      return '<a class="feature-card" href="detail.html?id=' + encodeURIComponent(ev.id) + '">' +
-        '<span class="feature-card__new">NEW</span>' +
-        photoHtml(ev) +
-        '<div class="feature-card__body">' +
-        '<h3 class="feature-card__name">' + esc(ev.name) + "</h3>" +
-        '<p class="feature-card__summary">' + esc(ev.summary) + "</p>" +
-        "</div></a>";
+      return '<a class="tt-board__row" href="detail.html?id=' + encodeURIComponent(ev.id) + '">' +
+        '<span class="tt-flag">NEW</span>' +
+        '<span class="tt-board__date">' + esc(shortDate(ev)) + "</span>" +
+        '<span class="tt-board__name">' + esc(ev.name) + "</span>" +
+        "</a>";
     }).join("");
+  }
+
+  /* ---------- 月バー（これからのイベントを目盛に配置） ---------- */
+  function renderMonthbar() {
+    var bar = document.getElementById("monthbar");
+    if (!bar) return;
+    var WINDOW_DAYS = 60;
+    var now = new Date();
+    var start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var cap = document.getElementById("monthbarCaption");
+    if (cap) {
+      var m1 = now.getMonth() + 1;
+      var m2 = ((now.getMonth() + 2 - 1) % 12) + 1;
+      cap.textContent = m1 + "月〜" + m2 + "月";
+    }
+    events
+      .filter(function (ev) { return endOf(ev) >= TODAY; })
+      .sort(byUpcoming)
+      .slice(0, 8)
+      .forEach(function (ev) {
+        var d = new Date((ev.date || "") + "T00:00:00");
+        if (isNaN(d)) return;
+        var days = Math.round((d - start) / 86400000);
+        if (days < 0 || days > WINDOW_DAYS) return;
+        var mark = document.createElement("span");
+        mark.className = "tt-monthbar__mark";
+        mark.style.left = ((days / WINDOW_DAYS) * 100).toFixed(1) + "%";
+        mark.textContent = shortDate(ev);
+        bar.appendChild(mark);
+      });
   }
 
   /* ---------- エリアフィルタ ---------- */
@@ -142,11 +163,11 @@
       grid.innerHTML = '<p class="empty">該当するイベントがありません。</p>';
     } else {
       grid.innerHTML = pageItems.map(function (ev) {
-        return '<a class="card" href="detail.html?id=' + encodeURIComponent(ev.id) + '">' +
-          photoHtml(ev) +
-          '<div class="card__body">' +
-          '<h3 class="card__name">' + esc(ev.name) + "</h3>" +
-          '<p class="card__summary">' + esc(ev.summary) + "</p>" +
+        return '<a class="tt-row" href="detail.html?id=' + encodeURIComponent(ev.id) + '">' +
+          plateHtml(ev) +
+          '<div class="tt-row__body">' +
+          '<span class="tt-row__area">' + esc(ev.area) + "</span>" +
+          '<h3 class="tt-row__name">' + esc(ev.name) + "</h3>" +
           "</div></a>";
       }).join("");
     }
@@ -200,6 +221,7 @@
       return;
     }
     renderHeroCount();
+    renderMonthbar();
     renderFeatured();
     renderFilter();
     renderGrid();
