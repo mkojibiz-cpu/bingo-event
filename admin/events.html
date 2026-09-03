@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>イベント手入力ツール｜びんごイベントナビ</title>
+  <meta name="theme-color" content="#1c3a4b">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-logo" href="../index.html">
+        <span class="site-logo__mark" aria-hidden="true"></span>
+        びんごイベントナビ<span class="site-logo__beta">（仮）</span>
+      </a>
+      <p class="site-tagline">EVENT ENTRY TOOL — 内部用</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="container" style="max-width:860px">
+      <h1>イベント手入力ツール</h1>
+      <p class="page-lead">
+        <code>data/manual.json</code> にイベントを足す／消すための道具です。
+        入力 → <strong>「manual.json をダウンロード」</strong> → リポジトリの
+        <code>data/manual.json</code> を差し替えて commit すると、次のデプロイで反映されます。
+        （このページはサーバに保存しません。ローカルで完結します）
+      </p>
+      <p class="form__status" id="loadStatus" role="status"></p>
+
+      <h2 class="section__title" style="margin-top:28px">追加ずみ（additional）</h2>
+      <div class="adm-list" id="addList"></div>
+
+      <h2 class="section__title">イベントを追加</h2>
+      <form class="form" id="addForm" novalidate>
+        <div class="form__row">
+          <label for="a_name">イベント名<span class="req">*</span></label>
+          <input type="text" id="a_name" required>
+        </div>
+        <div class="form__row">
+          <label for="a_date">開催日（開始）<span class="req">*</span></label>
+          <input type="date" id="a_date" required>
+        </div>
+        <div class="form__row">
+          <label for="a_end">終了日（期間イベントのみ）</label>
+          <input type="date" id="a_end">
+        </div>
+        <div class="form__row">
+          <label for="a_datetext">表示用の日付テキスト</label>
+          <input type="text" id="a_datetext" placeholder="空欄なら開始日から自動（例：2026年10月3日）">
+        </div>
+        <div class="form__row">
+          <label for="a_area">エリア<span class="req">*</span></label>
+          <select id="a_area" required>
+            <option value="">選択</option>
+            <option>福山</option><option>笠岡</option><option>尾道</option>
+            <option>府中</option><option>神辺</option>
+          </select>
+        </div>
+        <div class="form__row"><label for="a_venue">会場</label><input type="text" id="a_venue"></div>
+        <div class="form__row"><label for="a_address">住所</label><input type="text" id="a_address"></div>
+        <div class="form__row"><label for="a_time">時間</label><input type="text" id="a_time" placeholder="10:00〜17:00"></div>
+        <div class="form__row"><label for="a_fee">料金</label><input type="text" id="a_fee" placeholder="無料 / 大人500円 など"></div>
+        <div class="form__row"><label for="a_org">主催</label><input type="text" id="a_org"></div>
+        <div class="form__row">
+          <label for="a_summary">紹介文（自分の言葉で）</label>
+          <textarea id="a_summary" placeholder="他サイトの文章をそのまま貼らないこと"></textarea>
+        </div>
+        <div class="form__row">
+          <label for="a_url">出典URL<span class="req">*</span></label>
+          <input type="url" id="a_url" required placeholder="https://…">
+        </div>
+        <div class="form__row" style="grid-auto-flow:column;justify-content:start;align-items:center;gap:8px">
+          <input type="checkbox" id="a_featured" style="width:auto">
+          <label for="a_featured" style="font-weight:400">新着イベント欄に固定（featured）</label>
+        </div>
+        <div class="form__actions">
+          <button type="submit" class="btn btn--primary">リストに追加</button>
+        </div>
+        <p class="form__status" id="addStatus" role="status"></p>
+      </form>
+
+      <h2 class="section__title" style="margin-top:28px">非表示にする（exclude）</h2>
+      <p class="form__hint">削除依頼への対応など。<code>data/events.js</code> の id を貼り付け。</p>
+      <div class="form__actions" style="margin-bottom:8px">
+        <input type="text" id="exId" placeholder="20261003-xxxxxxxxxx" style="flex:1;min-width:200px;font:inherit;padding:8px 10px;border:1px solid var(--color-border)">
+        <button type="button" class="btn btn--ghost" id="exAdd">追加</button>
+      </div>
+      <div class="adm-list" id="exList"></div>
+
+      <h2 class="section__title" style="margin-top:28px">書き出し</h2>
+      <div class="form__actions">
+        <button type="button" class="btn btn--primary" id="dl">manual.json をダウンロード</button>
+        <button type="button" class="btn btn--ghost" id="cp">全文をコピー</button>
+      </div>
+      <p class="form__status" id="outStatus" role="status"></p>
+      <pre class="code-out" id="preview" style="margin-top:12px"></pre>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="site-footer__copy">© 2026 びんごイベントナビ — 内部ツール</p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/admin-events.js"></script>
+</body>
+</html>

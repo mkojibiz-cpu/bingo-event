@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>イベント情報の掲載・修正依頼｜びんごイベントナビ</title>
+  <meta name="description" content="備後・福山エリアのイベント情報の掲載・修正・削除のご依頼フォーム。">
+  <meta name="theme-color" content="#1c3a4b">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-logo" href="index.html">
+        <span class="site-logo__mark" aria-hidden="true"></span>
+        びんごイベントナビ<span class="site-logo__beta">（仮）</span>
+      </a>
+      <p class="site-tagline">FUKUYAMA / KASAOKA / ONOMICHI / FUCHU / KANNABE</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="container" style="max-width:760px">
+      <a class="back-link" href="index.html">← イベント一覧に戻る</a>
+      <h1>イベント情報の掲載・修正依頼</h1>
+      <p class="page-lead">
+        備後・福山エリア（福山・笠岡・尾道・府中・神辺）で開催されるイベントを募集しています。
+        いただいた情報は編集して掲載します（紹介文はこちらで短くまとめ直します）。
+        掲載中の情報の修正・削除もこちらからどうぞ。
+      </p>
+
+      <form class="form" id="submitForm" novalidate>
+        <div class="form__row form__hp" aria-hidden="true">
+          <label for="company">会社名（入力しないでください）</label>
+          <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="form__row">
+          <label for="f_name">イベント名<span class="req">*</span></label>
+          <input type="text" id="f_name" required>
+        </div>
+
+        <div class="form__row">
+          <label for="f_date">開催日<span class="req">*</span></label>
+          <input type="text" id="f_date" required
+                 placeholder="例）2026年10月3日(土) / 2026-10-03 / 10月3日〜5日">
+          <span class="form__hint">単発でも期間でもOK。分かる範囲で。</span>
+        </div>
+
+        <div class="form__row">
+          <label for="f_area">エリア<span class="req">*</span></label>
+          <select id="f_area" required>
+            <option value="">選択してください</option>
+            <option>福山</option><option>笠岡</option><option>尾道</option>
+            <option>府中</option><option>神辺</option><option>その他（備考へ）</option>
+          </select>
+        </div>
+
+        <div class="form__row">
+          <label for="f_venue">会場</label>
+          <input type="text" id="f_venue" placeholder="例）福山城公園">
+        </div>
+
+        <div class="form__row">
+          <label for="f_url">公式・参考URL<span class="req">*</span></label>
+          <input type="url" id="f_url" required placeholder="https://…">
+          <span class="form__hint">主催者ページ・チラシPDF・SNS投稿など、出典として必ずリンクします。</span>
+        </div>
+
+        <div class="form__row">
+          <label for="f_note">ひとこと・補足</label>
+          <textarea id="f_note" placeholder="時間・料金・見どころ・修正/削除の理由など"></textarea>
+        </div>
+
+        <div class="form__row">
+          <label for="f_contact">あなたの連絡先（任意）</label>
+          <input type="email" id="f_contact" placeholder="確認の連絡が必要なときだけ使います">
+        </div>
+
+        <div class="form__actions">
+          <button type="submit" class="btn btn--primary">メールで送信</button>
+          <button type="button" class="btn btn--ghost" id="copyBtn">内容をコピー</button>
+        </div>
+        <p class="form__status" id="status" role="status"></p>
+      </form>
+
+      <p class="form__note">
+        送信ボタンでメールソフトが開きます。開かない場合は「内容をコピー」して
+        <a href="mailto:info@bingo-event.example.jp">info@bingo-event.example.jp</a> へ貼り付けてください。<br>
+        掲載は事実情報（名称・日時・会場・出典リンク）が中心です。紹介文・写真の転載はしません。
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="site-footer__copy">© 2026 びんごイベントナビ</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/submit.js"></script>
+</body>
+</html>

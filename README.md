@@ -7,6 +7,8 @@ GitHub Actions が毎日クロールして `data/events.js` を更新 → 自動
 ```
 /
 ├─ index.html / detail.html / 404.html      サイト本体（GitHub Pages のルート）
+├─ submit.html                              イベント掲載・修正依頼フォーム
+├─ admin/events.html                        手入力ツール（内部用・noindex）
 ├─ robots.txt / sitemap.xml / favicon.svg
 ├─ CNAME                                     ← 独自ドメイン確定後に追加
 ├─ assets/  css / js / img
@@ -17,11 +19,22 @@ GitHub Actions が毎日クロールして `data/events.js` を更新 → 自動
 └─ .github/workflows/  deploy.yml（公開）/ crawl.yml（毎日クロール）
 ```
 
+## イベントの入り口（3系統）
+
+1. **自動クロール** — `crawler/sources/` に登録したサイト・RSS・iCal・API から毎日収集。
+   取り込むのは事実だけ（名称・日時・会場・住所・時間・料金・主催・出典リンク）。
+   現在の接続: Dive! Hiroshima（県公式観光）、びんごライフ イベントRSS（備後圏域6市2町）。
+2. **投稿フォーム** `submit.html` — 主催者・住民が投稿 → メール（既定）で届く →
+   確認して手入力ツールで追加。
+3. **手入力ツール** `admin/events.html` — `data/manual.json` をブラウザで編集して
+   ダウンロード → リポジトリに commit。クロールで拾えない催しや、紹介文・固定表示・
+   非表示（削除依頼）をここで。
+
 ## ローカルでの確認
 
 ビルド不要。`index.html` をダブルクリックしてブラウザで開く。
 
-- 上部キービジュアル＋新着3件＋「開催日が近い順」グリッド（20件/ページ）＋エリアフィルタ
+- 海の帯＋月バー＋新着イベント（電光掲示板）＋「開催が近い順」の3列コンパクト表
 - カードクリックで `detail.html?id=<id>`。未知の id は「見つかりません」
 
 クローラを試す:

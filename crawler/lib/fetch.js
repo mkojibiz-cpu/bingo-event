@@ -22,7 +22,10 @@ function cachePath(url) {
  * 1日1回・低速・条件付きリクエストで HTML を取得する。
  * ETag / Last-Modified をキャッシュし、304 のときは前回本文を返す。
  */
-export async function fetchText(url, { timeoutMs = 15000, retries = 2, minDelayMs = 0 } = {}) {
+export async function fetchText(
+  url,
+  { timeoutMs = 15000, retries = 2, minDelayMs = 0, headers: extraHeaders = {} } = {}
+) {
   fs.mkdirSync(CACHE_DIR, { recursive: true });
   const cp = cachePath(url);
   let cached = null;
@@ -37,7 +40,11 @@ export async function fetchText(url, { timeoutMs = 15000, retries = 2, minDelayM
     if (attempt > 0) await new Promise((r) => setTimeout(r, 1000 * attempt));
     await politeDelay(minDelayMs);
 
-    const headers = { "User-Agent": USER_AGENT, "Accept-Language": "ja,en;q=0.8" };
+    const headers = {
+      "User-Agent": USER_AGENT,
+      "Accept-Language": "ja,en;q=0.8",
+      ...extraHeaders,
+    };
     if (cached?.etag) headers["If-None-Match"] = cached.etag;
     if (cached?.lastModified) headers["If-Modified-Since"] = cached.lastModified;
 

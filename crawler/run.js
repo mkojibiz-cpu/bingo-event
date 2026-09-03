@@ -29,6 +29,30 @@ const warn = (m) => {
 const endOf = (e) => e.endDate || e.date;
 
 async function crawlSource(source, today) {
+  // ---- フィード型ソース（RSS / iCal / API）: 1回で raw をまとめて返す ----
+  if (typeof source.fetchRaws === "function") {
+    const ctx = {
+      today,
+      warn,
+      fetchText: (url, opts = {}) => fetchText(url, { minDelayMs: source.minDelayMs || 0, ...opts }),
+    };
+    let raws = [];
+    try {
+      raws = (await source.fetchRaws(ctx)) || [];
+    } catch (e) {
+      warn(`${source.name}: fetchRaws 失敗 — ${e.message}`);
+      return [];
+    }
+    const events = [];
+    for (const raw of raws) {
+      if (!raw || !raw.sourceUrl) continue;
+      const ev = normalizeEvent(raw, { areaHint: source.areaHint, today });
+      if (ev) events.push(ev);
+    }
+    return dedupe(events);
+  }
+
+  // ---- クロール型ソース: 一覧ページ → 詳細ページ ----
   // robots.txt の Crawl-delay を尊重（source 側の minDelayMs があればさらに大きい方）
   const robotsDelay = await crawlDelayMs(source.listUrls[0]);
   const minDelayMs = Math.max(robotsDelay, source.minDelayMs || 0);

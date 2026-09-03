@@ -23,43 +23,48 @@
 run.js            全ソース実行 → 正規化 → 重複排除 → 既存とマージ → manual.json 適用 → 書き出し
 config.js         ドメイン / User-Agent / エリア判定キーワード / 保持日数
 lib/
-  fetch.js        丁寧な取得（遅延・リトライ・キャッシュ）
-  robots.js       robots.txt 判定
+  fetch.js        丁寧な取得（遅延・リトライ・キャッシュ・Crawl-delay・任意ヘッダ）
+  robots.js       robots.txt 判定 / Crawl-delay
   extract.js      JSON-LD(schema.org/Event) 抽出
+  feed.js         RSS/Atom・iCal の最小パーサ
   date.js         和暦・日本語日付 → ISO
-  normalize.js    統一スキーマ化・エリア判定・要約の圧縮
+  normalize.js    統一スキーマ化・エリア判定（事実のみ）
   dedupe.js       同一IDのマージ
   store.js        events.js / manual.json / sitemap.xml の読み書き
 sources/
-  index.js        有効なソースの一覧（ここを編集して対象を増減）
-  jsonld.js       JSON-LD を出すサイト向けの汎用ソース
-  _template.js    CSS セレクタで抽出するサイト用のテンプレート
+  index.js         有効なソースの一覧（ここを編集して対象を増減）
+  dive-hiroshima.js 実接続例（Next.js の __NEXT_DATA__ を読む）
+  rss.js / ical.js  RSS / iCal の汎用ソース
+  connpass.js       connpass（要 CONNPASS_API_KEY）
+  jsonld.js         JSON-LD を出すサイト向けの汎用ソース
+  _template.js      CSS セレクタで抽出するサイト用のテンプレート
 test/             node --test。サイト改装の検知にも使う
 ```
 
 ## ソースを追加する
 
-### A. サイトが JSON-LD(Event 構造化データ) を出している場合
+ソースの型は2つ:
 
-`sources/index.js` に追記するだけ:
+- **クロール型** `{ listUrls, collectDetailLinks($, url, html), parseDetail($, url, html) }`
+  一覧ページ → 詳細ページ の順にたどる。JSON-LD があれば `jsonLdSource` が手軽。
+  無ければ `_template.js` をコピーして CSS セレクタ／埋め込みJSONで抽出
+  （実接続例は `dive-hiroshima.js`）。
+- **フィード型** `{ async fetchRaws(ctx) }` … 1回で raw 配列を返す。RSS/iCal/API 向け。
+  `ctx = { fetchText, warn, today }`。`rss.js` / `ical.js` / `connpass.js` が実装。
 
 ```js
-jsonLdSource({
-  name: "◯◯観光協会 イベント",
-  listUrls: ["https://example.jp/events/"],   // 一覧ページ（複数可）
-  detailLinkPattern: /\/events\/[0-9]+/,       // 詳細ページURLのパターン
-  areaHint: "笠岡",                            // 市単位サイトなら指定。null なら会場から自動判定
-})
+// RSS（多くの WordPress サイトは /feed/ を持つ。カテゴリ別は /category/xxx/feed/）
+rssSource({ name: "◯◯協会 お知らせ（RSS）", feedUrls: ["https://example.jp/feed/"], areaHint: "尾道" })
+
+// 公開Googleカレンダー等の iCal（DTSTART が構造化されていて確実）
+icalSource({ name: "◯◯実行委 カレンダー", icsUrls: ["https://.../basic.ics"], areaHint: "福山" })
 ```
 
-確認方法: 対象の詳細ページを開き、ソースに
-`<script type="application/ld+json"> ... "@type": "Event" ...` があれば A でいける。
+RSS の item には開催日欄が無いことが多いので、日付はタイトル＋説明文から
+`parseJpDate` で拾う（拾えなければ不採用）。説明文そのものは保存しない。
 
-### B. 構造化データが無い場合
-
-`_template.js` を `sources/<site>.js` にコピーし、`collectDetailLinks` と
-`parseDetail` を実サイトの CSS セレクタに合わせて実装。`sources/index.js` で
-`import` して配列に加える。
+`robots.txt` の `Crawl-delay` は自動で尊重する。加えて手動で下限を設けたいときは
+ソースに `minDelayMs: 90000` を付ける。
 
 ## 動かす
 

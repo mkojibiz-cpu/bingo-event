@@ -37,17 +37,20 @@ export function normalizeEvent(raw, { areaHint = null, today = new Date() } = {}
 
   let date = null;
   let endDate = null;
-  let dateText = raw.dateText || "";
+  let dateText = "";
 
   if (raw.startDate && /^\d{4}-\d{2}-\d{2}/.test(raw.startDate)) {
     date = raw.startDate.slice(0, 10);
     endDate = raw.endDate ? raw.endDate.slice(0, 10) : null;
-  } else if (raw.dateText) {
-    const parsed = parseJpDate(raw.dateText, today);
+  } else {
+    // raw.dateText … 表示にも使えるきれいな日付文字列
+    // raw.dateSource … 日付を拾うためだけの自由文（タイトル＋説明文など。表示には使わない）
+    const parsed = parseJpDate(raw.dateText || raw.dateSource || "", today);
     if (parsed) {
       date = parsed.date;
       endDate = parsed.endDate;
     }
+    if (raw.dateText) dateText = raw.dateText;
   }
   if (!date) return null;
   if (endDate === date) endDate = null;

@@ -1,22 +1,41 @@
 /**
- * 有効なクロール対象サイトの一覧。
+ * 有効なクロール対象の一覧。ここに追加すると毎日のクロール対象になる。
+ * 追加前に必ず robots.txt と利用規約を確認すること（_template.js のコメント参照）。
  *
- * ここに追加すると毎日のクロール対象になる。追加前に必ず
- * robots.txt と利用規約を確認すること（詳しくは _template.js のコメント）。
+ * ソースの型は2つ:
+ *   - クロール型  { listUrls, collectDetailLinks, parseDetail }
+ *   - フィード型  { fetchRaws(ctx) }  … RSS / iCal / API
  *
- * サイトが JSON-LD(Event 構造化データ) を出しているなら jsonLdSource が手軽。
- * そうでなければ _template.js をコピーして CSS セレクタ／埋め込みJSON で抽出する。
+ * 取り込むのは事実だけ（名称・日時・会場・住所・時間・料金・主催・出典リンク）。
+ * 紹介文・写真は取り込まない。
  *
- * 壊れたサイトを一時停止したいときは、その要素を配列から外す（コメントアウト）だけでよい。
+ * 壊れたソースを一時停止したいときは、その行をコメントアウトするだけでよい。
  */
 import diveHiroshima from "./dive-hiroshima.js";
-// import { jsonLdSource } from "./jsonld.js";
+import { rssSource } from "./rss.js";
+// import { icalSource } from "./ical.js";
+// import connpass from "./connpass.js";
 
 export const sources = [
   diveHiroshima,
 
-  // ── 追加候補（未接続）────────────────────────────────────────────
-  // ・まいぷれ福山 https://fukuyama.mypl.net/event/  … robots は許可だが
-  //   Crawl-delay: 90 秒。fetch.js に crawl-delay 対応を足してから接続する。
-  // ・福山市公式「えっと福山」/ 各市の観光協会 … 構造化データが無く要個別実装。
+  // 備後圏域6市2町の公式ポータル「びんごライフ」のイベントカテゴリRSS
+  rssSource({
+    name: "びんごライフ イベント（RSS）",
+    feedUrls: ["https://bingolife.jp/news/news_tax/event/feed/"],
+    areaHint: null,
+  }),
+
+  // ── 追加候補 ───────────────────────────────────────────────
+  // connpass（要 CONNPASS_API_KEY）。キーを用意したら有効化:
+  //   connpass,
+  //
+  // 公開Googleカレンダー等の iCal を持つ主催者が見つかったら:
+  //   icalSource({ name: "◯◯実行委 カレンダー", icsUrls: ["https://.../basic.ics"], areaHint: "福山" }),
+  //
+  // 各団体サイトの RSS（多くの WordPress サイトは /feed/ を持つ）:
+  //   rssSource({ name: "◯◯協会 お知らせ（RSS）", feedUrls: ["https://example.jp/feed/"], areaHint: "尾道" }),
+  //
+  // まいぷれ福山 https://fukuyama.mypl.net/event/  … robots は許可だが Crawl-delay 90秒。
+  //   接続する場合は minDelayMs: 90000 を付け、利用規約（事実＋出典リンクのみ）を運営者が確認のうえで。
 ];

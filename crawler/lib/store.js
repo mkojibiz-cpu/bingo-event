@@ -56,6 +56,7 @@ export function writeEventsFile(events) {
 export function writeSitemap(events) {
   const urls = [
     `${SITE_ORIGIN}/`,
+    `${SITE_ORIGIN}/submit.html`,
     ...events.map((e) => `${SITE_ORIGIN}/detail.html?id=${encodeURIComponent(e.id)}`),
   ];
   const body = urls

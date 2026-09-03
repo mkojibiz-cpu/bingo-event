@@ -398,6 +398,125 @@ img { max-width: 100%; display: block; }
 }
 
 /* ============================================================
+   フォーム（投稿ページ / 管理ツール共通）
+   ============================================================ */
+.page-lead {
+  margin: 8px 0 24px;
+  color: var(--color-text-sub);
+  max-width: 60em;
+  line-height: 1.9;
+}
+.form {
+  display: grid;
+  gap: 16px;
+  max-width: 640px;
+  margin-top: 8px;
+}
+.form__row { display: grid; gap: 5px; }
+.form__row > label {
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+.form__row .req { color: var(--color-warn); margin-left: .3em; }
+.form__hint { font-size: .78rem; color: var(--color-text-sub); }
+.form input[type="text"],
+.form input[type="url"],
+.form input[type="email"],
+.form input[type="date"],
+.form input[type="time"],
+.form select,
+.form textarea {
+  font: inherit;
+  font-size: .95rem;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  width: 100%;
+}
+.form textarea { min-height: 84px; resize: vertical; }
+.form input:focus, .form select:focus, .form textarea:focus {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 1px;
+  border-color: var(--color-teal);
+}
+.form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.btn {
+  appearance: none;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 0;
+  padding: 10px 20px;
+  border: 1px solid var(--color-navy);
+}
+.btn--primary { background: var(--color-navy); color: var(--color-navy-ink); }
+.btn--primary:hover { background: var(--color-navy-hi); }
+.btn--ghost { background: var(--color-surface); color: var(--color-navy); }
+.btn--ghost:hover { background: var(--color-bg); }
+.form__note {
+  margin-top: 14px;
+  padding: 11px 14px;
+  border-left: 3px solid var(--color-teal);
+  background: var(--color-paper);
+  font-size: .85rem;
+  line-height: 1.8;
+  color: var(--color-text-sub);
+}
+.form__status { font-size: .9rem; font-weight: 700; }
+.form__status.is-ok { color: var(--color-teal); }
+.form__status.is-err { color: var(--color-warn); }
+.code-out {
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+  background: #12232e;
+  color: #d6e6e8;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  max-height: 320px;
+  overflow: auto;
+}
+
+/* 管理ツールの一覧 */
+.adm-list { display: grid; gap: 8px; margin: 12px 0 20px; }
+.adm-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding: 9px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-size: .88rem;
+}
+.adm-item__date { font-family: var(--font-mono); color: var(--color-teal); }
+.adm-item__area {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  background: var(--color-navy);
+  color: var(--color-navy-ink);
+  padding: 1px 7px;
+}
+.adm-item__name { font-weight: 700; }
+.adm-item__rm {
+  margin-left: auto;
+  appearance: none;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: .78rem;
+  padding: 2px 9px;
+  cursor: pointer;
+  color: var(--color-warn);
+}
+
+/* ============================================================
    イベント詳細ページ
    ============================================================ */
 .back-link {

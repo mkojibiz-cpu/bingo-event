@@ -6,4 +6,8 @@
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://bingo-event.example.jp/submit.html</loc>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>
