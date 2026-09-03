@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- このファイルはフェーズB以降、crawler/run.js が各イベント詳細URLを含めて再生成します。 -->
+<!-- crawler/run.js が生成 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://bingo-event.com/</loc>
@@ -8,6 +8,54 @@
   </url>
   <url>
     <loc>https://bingo-event.com/submit.html</loc>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://bingo-event.com/detail.html?id=2026-ashidagawa-hanabi</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://bingo-event.com/detail.html?id=2026-fuchuyaki-grand-prix</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://bingo-event.com/detail.html?id=2026-fukuyama-intl-music-festival</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://bingo-event.com/detail.html?id=2026-fukuyama-oktoberfest</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://bingo-event.com/detail.html?id=2026-onomichi-akari-matsuri</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://bingo-event.com/detail.html?id=2026-kasaoka-islands-art-fes</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://bingo-event.com/detail.html?id=2026-renjuku-autumn-open</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://bingo-event.com/detail.html?id=2026-tomo-yatai-mura-autumn</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://bingo-event.com/detail.html?id=2026-onomichi-beccha-matsuri</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://bingo-event.com/detail.html?id=2026-kannabe-honjin-kikka-ten</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://bingo-event.com/detail.html?id=2026-fukuyama-city-marathon</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://bingo-event.com/detail.html?id=2026-fukuyama-christmas-illumination</loc>
+    <changefreq>weekly</changefreq>
   </url>
 </urlset>
