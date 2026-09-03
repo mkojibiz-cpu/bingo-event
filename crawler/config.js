@@ -1,7 +1,7 @@
 // クローラ全体の設定。本番ドメインが決まったら SITE_ORIGIN と連絡先を書き換える。
 
-export const SITE_ORIGIN = "https://bingo-event.example.jp";
-export const CONTACT_EMAIL = "info@bingo-event.example.jp";
+export const SITE_ORIGIN = "https://bingo-event.com";
+export const CONTACT_EMAIL = "info@bingo-event.com";
 
 // 取得先に送る User-Agent（連絡先を必ず含める）
 export const USER_AGENT =

@@ -2,12 +2,12 @@
 <!-- このファイルはフェーズB以降、crawler/run.js が各イベント詳細URLを含めて再生成します。 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://bingo-event.example.jp/</loc>
+    <loc>https://bingo-event.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://bingo-event.example.jp/submit.html</loc>
+    <loc>https://bingo-event.com/submit.html</loc>
     <changefreq>monthly</changefreq>
   </url>
 </urlset>

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bingo-event.example.jp/sitemap.xml
+Sitemap: https://bingo-event.com/sitemap.xml

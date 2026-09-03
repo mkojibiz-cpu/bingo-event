@@ -6,7 +6,7 @@
  */
 (function () {
   "use strict";
-  var MAIL_TO = "info@bingo-event.example.jp";
+  var MAIL_TO = "info@bingo-event.com";
 
   var form = document.getElementById("submitForm");
   if (!form) return;

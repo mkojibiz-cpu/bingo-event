@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="びんごイベントナビ">
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cfe0e6"/>
+      <stop offset="0.42" stop-color="#8fb3bc"/>
+      <stop offset="1" stop-color="#2f6f7c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#1c3a4b"/>
+  <rect x="0" y="0" width="1200" height="250" fill="url(#sea)"/>
+  <line x1="0" y1="150" x2="1200" y2="150" stroke="#ffffff" stroke-opacity="0.55" stroke-width="2"/>
+
+  <!-- 発着案内板ふうのパネル -->
+  <rect x="72" y="150" width="1056" height="360" fill="#f3f1ea" stroke="#d7d3c6" stroke-width="2"/>
+
+  <text x="104" y="214" font-family="'DejaVu Sans Mono',monospace" font-size="24" letter-spacing="8" fill="#2f7d84">BINGO AREA / EVENT TIMETABLE</text>
+
+  <text x="102" y="300" font-family="'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif" font-size="76" font-weight="700" fill="#1c3a4b">びんごイベントナビ</text>
+
+  <text x="106" y="356" font-family="'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif" font-size="30" fill="#4b6675">福山・笠岡・尾道・府中・神辺のイベントを毎日更新</text>
+
+  <!-- 月バーふうの目盛 -->
+  <g transform="translate(104,404)">
+    <rect x="0" y="0" width="992" height="56" fill="none" stroke="#cfcabb" stroke-width="2"/>
+    <g stroke="#cfcabb" stroke-width="1">
+      <line x1="66" y1="0" x2="66" y2="56"/><line x1="132" y1="0" x2="132" y2="56"/>
+      <line x1="198" y1="0" x2="198" y2="56"/><line x1="264" y1="0" x2="264" y2="56"/>
+      <line x1="330" y1="0" x2="330" y2="56"/><line x1="396" y1="0" x2="396" y2="56"/>
+      <line x1="462" y1="0" x2="462" y2="56"/><line x1="528" y1="0" x2="528" y2="56"/>
+      <line x1="594" y1="0" x2="594" y2="56"/><line x1="660" y1="0" x2="660" y2="56"/>
+      <line x1="726" y1="0" x2="726" y2="56"/><line x1="792" y1="0" x2="792" y2="56"/>
+      <line x1="858" y1="0" x2="858" y2="56"/><line x1="924" y1="0" x2="924" y2="56"/>
+    </g>
+    <circle cx="150" cy="28" r="7" fill="#d4772e"/>
+    <circle cx="470" cy="28" r="7" fill="#d4772e"/>
+    <circle cx="640" cy="28" r="7" fill="#d4772e"/>
+    <circle cx="880" cy="28" r="7" fill="#d4772e"/>
+  </g>
+
+  <rect x="0" y="620" width="1200" height="10" fill="#2f7d84"/>
+</svg>
