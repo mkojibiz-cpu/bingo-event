@@ -1,4 +1,4 @@
-<title>びんごイベントナビ デザイン5案</title>
+<title>びんごイベントナビ デザイン試案</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   :root {
@@ -116,14 +116,15 @@
 <div class="wrap">
   <header class="intro">
     <p class="intro__eyebrow">Design directions &mdash; take 2</p>
-    <h1>びんごイベントナビ ― デザイン試案 5つ（コンセプト先行）</h1>
-    <p>前回の10案は方向性が合わなかったとのことなので、今回は
-       <strong>「◯◯という見立て」を軸にした5案</strong> にしました。
-       スタイルの分類ではなく、サイト全体を1つのモチーフで捉えています。</p>
-    <p>各案は同じサンプル6件を使ったトップページのミニモックアップ（枠内）＋スペック。
-       写真はプレースホルダです。気に入った番号、または
-       「2の世界観＋3の情報整理」のような掛け合わせでも構いません。
-       決めた方向を実サイトの <code>assets/css/style.css</code> に反映します。</p>
+    <h1>びんごイベントナビ ― デザイン試案（コンセプト先行 5案 ＋ 掛け合わせ）</h1>
+    <p>スタイルの分類ではなく、サイト全体を1つのモチーフで捉えた
+       <strong>「◯◯という見立て」の5案</strong>（1〜5）と、
+       ご要望の <strong>掛け合わせ案</strong>（6）です。</p>
+    <p><strong>6「草花帖」＝ 2（標本箱）をベースに 1（回覧板）のカジュアルさを足した案。</strong>
+       図鑑の端正さは残しつつ、手づくりの冊子のような親しみを加えています。</p>
+    <p>各案は同じサンプルを使ったトップページのミニモックアップ（枠内）＋スペック。
+       写真はプレースホルダです。決めた方向を実サイトの
+       <code>assets/css/style.css</code> に反映します。</p>
 
     <table class="index">
       <thead><tr><th>#</th><th>見立て</th><th>気分</th><th>ねらい</th></tr></thead>
@@ -488,6 +489,54 @@ const DIRECTIONS = [
     '.m-new__date{font-family:"Bebas Neue",sans-serif;font-size:15px;color:#2b56c8}',
     '.m-new__area{display:none}',
     '.m-new__name{font-weight:900;line-height:1.28;margin-top:2px}'
+  ].join("\n")
+},
+{
+  id: "d6", name: "草花帖", jp: "Neighbourhood Botanical", sys: "端正だけど親しみ・ばらのまち",
+  blurb: "2（標本箱）ベース＋1（回覧板）のカジュアルさ。手づくりの植物帖。",
+  mood: "図鑑の端正さは残しつつ、近所の人がていねいに綴じた冊子のような親しみ。明朝の見出し＋ペン字のイベント名、紙にマスキングテープ。",
+  fonts: "Shippori Mincho（見出し）＋ Klee One（イベント名・ロゴ）＋ Zen Kaku Gothic New",
+  chips: [["台紙","#f4efe4"],["カード","#fffdf7"],["草","#4f6a45"],["ばら","#b34a5f"],["テープ","#c5a978"]],
+  pro: ["上品さと親しみを両立。ばらのまちの土地感も出る", "写真が少ない日でも“手帖”として成立", "行政〜ファミリーまで受けが広い"],
+  con: ["明朝＋ペン字の混植は小サイズの可読性に注意", "テープ・影などカジュアル要素は入れすぎ注意"],
+  h: 745,
+  fontLink: "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400&display=swap",
+  css: [
+    'body{font-family:"Zen Kaku Gothic New",system-ui,sans-serif;color:#2f2b26;background:#f4efe4;line-height:1.8}',
+    '.m-head{display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-bottom:1px solid #d9d0bb}',
+    '.m-logo{font-family:"Klee One",serif;font-weight:600;font-size:16px;color:#4f6a45;display:flex;align-items:center;gap:9px}',
+    '.m-mark{width:12px;height:12px;border-radius:50%;background:#b34a5f;box-shadow:0 0 0 3px rgba(179,74,95,.16);display:block}',
+    '.m-nav{font-size:11px;color:#8a8069}',
+    '.m-hero{padding:34px 24px 26px}',
+    '.m-hero-in{max-width:40ch}',
+    '.m-eyebrow{font-family:"Klee One",serif;font-size:12.5px;color:#b34a5f}',
+    '.m-title{font-family:"Shippori Mincho",serif;font-weight:700;font-size:27px;line-height:1.5;margin:6px 0 10px}',
+    '.m-title::after{content:"";display:block;width:44px;height:2px;background:#4f6a45;border-radius:2px;margin-top:12px}',
+    '.m-sub{font-size:12.5px;color:#6a6252}',
+    '.m-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}',
+    '.m-tags span{font-size:11px;color:#4f6a45;border:1px solid #c7bfa6;border-radius:999px;padding:2px 11px}',
+    '.m-filter{display:flex;gap:16px;flex-wrap:wrap;padding:12px 24px 4px;font-family:"Shippori Mincho",serif;font-size:13px;color:#8a8069}',
+    '.m-filter .on{color:#b34a5f;border-bottom:2px solid #b34a5f;padding-bottom:2px}',
+    '.m-label{font-family:"Klee One",serif;font-size:13px;color:#8a8069;padding:20px 24px 0}',
+    '.m-grid{grid-template-columns:repeat(3,1fr);gap:30px 22px;padding:14px 24px 34px;counter-reset:sp}',
+    '.card{background:#fffdf7;border:1px solid #d9d0bb;border-radius:5px;counter-increment:sp;box-shadow:0 2px 5px rgba(70,60,35,.12);overflow:visible}',
+    '.card::before{content:"";position:absolute;top:-6px;left:14px;width:40px;height:14px;background:rgba(197,169,120,.5);transform:rotate(-4deg);border-radius:1px}',
+    '.card-photo{aspect-ratio:5/4;border-radius:5px 5px 0 0;background:linear-gradient(140deg,hsl(var(--h) 26% 64%),hsl(calc(var(--h) + 22) 22% 50%));filter:saturate(.78);box-shadow:inset 0 0 0 1px rgba(47,43,38,.12)}',
+    '.card-badge{top:8px;left:8px;background:#fffdf7;color:#4f6a45;font-size:9.5px;letter-spacing:.08em;padding:1px 7px;border-radius:3px}',
+    '.card-date{left:8px;bottom:8px;background:#fffdf7;color:#2f2b26;font-size:10px;padding:1px 6px;border-radius:3px;font-variant-numeric:tabular-nums}',
+    '.card-body{padding:12px 13px 14px}',
+    '.card-body::before{content:"no." counter(sp,decimal-leading-zero);font-family:"Klee One",serif;font-size:11.5px;color:#4f6a45;display:block;margin-bottom:2px}',
+    '.card-name{font-family:"Klee One",serif;font-weight:600;font-size:14.5px;line-height:1.5}',
+    '.card-sum{font-size:11px;color:#7a7059;margin-top:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}',
+    '.m-new{padding:8px 24px 0}',
+    '.m-new__label{font-family:"Shippori Mincho",serif;font-weight:700;font-size:13px;color:#b34a5f;margin:0 0 8px}',
+    '.m-new__list{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}',
+    '.m-new__item{position:relative;background:#fffdf7;border:1px solid #d9d0bb;border-radius:5px;padding:10px 11px;box-shadow:0 2px 5px rgba(70,60,35,.1);text-decoration:none;color:inherit;font-size:11px}',
+    '.m-new__item::before{content:"";position:absolute;top:-5px;left:12px;width:32px;height:12px;background:rgba(197,169,120,.5);transform:rotate(-4deg)}',
+    '.m-new__flag{font-family:"Klee One",serif;font-size:10px;color:#4f6a45}',
+    '.m-new__date{font-weight:700;color:#b34a5f;font-size:12px;font-variant-numeric:tabular-nums}',
+    '.m-new__area{color:#8a8069;font-size:10px}',
+    '.m-new__name{font-family:"Klee One",serif;font-weight:600;line-height:1.45;margin-top:2px}'
   ].join("\n")
 }
 ];
