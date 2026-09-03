@@ -1,0 +1,15 @@
+{
+  "_readme": "人手の調整ファイル。crawler/run.js が data/events.js を生成する最後に適用する。",
+
+  "exclude": [],
+  "_exclude_help": "この id のイベントを一覧から消す（削除依頼への対応など）。id は data/events.js を参照。",
+
+  "pins": [],
+  "_pins_help": "この id を『新着イベント』枠に固定表示する（featured=true）。",
+
+  "overrides": {},
+  "_overrides_help": "{ \"<id>\": { \"summary\": \"…\", \"image\": \"assets/img/uploads/foo.jpg\" } } の形で個別に上書き。",
+
+  "additional": [],
+  "_additional_help": "クロールで拾えないイベントを手動追加。data/events.js と同じスキーマの完全な1件を並べる（id 必須）。"
+}

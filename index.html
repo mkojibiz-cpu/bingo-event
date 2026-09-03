@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>びんごイベントナビ｜福山・笠岡・尾道・府中・神辺のイベント情報</title>
+  <meta name="description" content="備後・福山エリア（福山・笠岡・尾道・府中・神辺）のお祭り・花火・展示・マルシェなどのイベント情報を毎日更新でまとめています。">
+
+  <!-- 本番ドメインが決まったら、全ファイルの https://bingo-event.example.jp を一括置換 -->
+  <link rel="canonical" href="https://bingo-event.example.jp/">
+  <meta name="theme-color" content="#d83a63">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="びんごイベントナビ">
+  <meta property="og:title" content="びんごイベントナビ｜備後・福山エリアのイベント情報">
+  <meta property="og:description" content="福山・笠岡・尾道・府中・神辺のイベント情報を毎日更新でまとめています。">
+  <meta property="og:url" content="https://bingo-event.example.jp/">
+  <meta property="og:image" content="https://bingo-event.example.jp/assets/img/hero.svg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-logo" href="index.html">
+        <span class="site-logo__mark" aria-hidden="true"></span>
+        びんごイベントナビ<span class="site-logo__beta">（仮）</span>
+      </a>
+      <p class="site-tagline">福山・笠岡・尾道・府中・神辺のおでかけ情報</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- ページ上部のキービジュアル -->
+      <section class="hero-banner">
+        <img class="hero-banner__img" src="assets/img/hero.svg"
+             alt="福山城とばら、提灯のキービジュアル">
+        <div class="hero-banner__overlay">
+          <h1 class="hero-banner__title">備後・福山エリアの、おでかけ＆イベント情報</h1>
+          <p class="hero-banner__sub">お祭り・花火・展示・マルシェを毎日チェック<span id="heroCount"></span></p>
+          <div class="hero-tags">
+            <span>福山</span><span>笠岡</span><span>尾道</span><span>府中</span><span>神辺</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 新着イベント（横3枚） -->
+      <section class="section">
+        <h2 class="section__title">✨ 新着イベント <span class="section__note">最近見つかった情報</span></h2>
+        <div class="feature-grid" id="featured"></div>
+      </section>
+
+      <!-- エリアフィルタ + グリッド -->
+      <section class="section">
+        <h2 class="section__title">📅 すべてのイベント <span class="section__note">開催日が近い順</span></h2>
+        <div class="filter" id="filter"></div>
+        <div class="event-grid" id="grid"></div>
+        <nav class="pager" id="pager" aria-label="ページ送り"></nav>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="site-footer__note">
+        掲載情報は各主催者・自治体・観光協会などの公開情報をもとにまとめています。
+        日時・料金などは変更される場合があります。最新・正確な情報は各イベントのリンク先をご確認ください。<br>
+        情報の修正・削除のご依頼は
+        <a href="mailto:info@bingo-event.example.jp">info@bingo-event.example.jp</a>
+        までご連絡ください。
+      </p>
+      <p class="site-footer__copy">© 2026 びんごイベントナビ</p>
+    </div>
+  </footer>
+
+  <script src="data/events.js"></script>
+  <script src="assets/js/list.js"></script>
+</body>
+</html>

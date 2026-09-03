@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="イベント画像は準備中です">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8fb8d8"/>
+      <stop offset="1" stop-color="#5f86ab"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="180" fill="url(#g)"/>
+  <g fill="#ffffff" opacity="0.85">
+    <circle cx="70" cy="120" r="22"/>
+    <path d="M40 150 L92 92 L150 150 Z"/>
+    <path d="M120 150 L180 78 L250 150 Z"/>
+  </g>
+  <text x="160" y="100" text-anchor="middle" font-family="'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif" font-size="16" fill="#ffffff">NO IMAGE</text>
+</svg>

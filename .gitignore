@@ -1,0 +1,17 @@
+# Node
+node_modules/
+crawler/node_modules/
+
+# クローラの取得キャッシュ・作業ファイル
+crawler/.cache/
+crawler/tmp/
+*.log
+
+# OS / エディタ
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Claude Code のローカル設定
+.claude/

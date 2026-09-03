@@ -1,0 +1,16 @@
+{
+  "name": "bingo-event-navi-crawler",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "備後・福山エリアのイベント情報を各サイトから収集して data/events.js を再生成するクローラ",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node run.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "robots-parser": "^3.0.1"
+  }
+}
