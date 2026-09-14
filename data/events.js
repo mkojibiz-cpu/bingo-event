@@ -1,26 +1,8 @@
 /* 自動生成ファイル — 直接編集しないでください。
- * 生成: crawler/run.js   最終生成: 2026-09-13T21:10:33.540Z
+ * 生成: crawler/run.js   最終生成: 2026-09-14T21:11:13.252Z
  * 追加・修正・固定表示・除外は data/manual.json で行います。
  */
 window.EVENTS = [
-  {
-    "id": "2026-ashidagawa-hanabi",
-    "name": "福山夏まつり あしだ川花火大会",
-    "area": "福山",
-    "date": "2026-08-15",
-    "dateText": "2026年8月15日(土)",
-    "image": "",
-    "summary": "芦田川河川敷で開催、中国地方屈指の約1万5千発。",
-    "description": "福山夏まつりのフィナーレを飾る大規模花火大会。芦田川大橋下流の河川敷が会場で、ワイドスターマインや尺玉の連発が名物です。夕方から市内中心部で「二上りおどり」なども行われます。",
-    "venue": "芦田川大橋下流 河川敷",
-    "address": "広島県福山市水呑町",
-    "time": "19:30〜21:00（予定）",
-    "fee": "無料（有料観覧席あり）",
-    "organizer": "福山夏まつり実行委員会",
-    "sourceUrl": "https://example.com/fukuyama/ashidagawa-hanabi",
-    "crawledAt": "2026-09-02",
-    "featured": true
-  },
   {
     "id": "2026-fuchuyaki-grand-prix",
     "name": "府中焼きグランプリ",
