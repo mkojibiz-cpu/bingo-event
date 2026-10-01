@@ -1,5 +1,5 @@
 /* 自動生成ファイル — 直接編集しないでください。
- * 生成: crawler/run.js   最終生成: 2026-09-30T00:05:18.455Z
+ * 生成: crawler/run.js   最終生成: 2026-10-01T00:23:21.265Z
  * 追加・修正・固定表示・除外は data/manual.json で行います。
  */
 window.EVENTS = [
@@ -38,6 +38,22 @@ window.EVENTS = [
     "sourceUrl": "https://example.com/fukuyama/music-festival",
     "crawledAt": "2026-09-03",
     "featured": true
+  },
+  {
+    "id": "20260919-5bef79e210",
+    "name": "せとうちエレジー～福山沼隈半島体験博～」2026秋",
+    "area": "福山",
+    "date": "2026-09-19",
+    "dateText": "2026年9月19日〜2026年11月23日",
+    "image": "",
+    "summary": "",
+    "description": "",
+    "sourceUrl": "https://dive-hiroshima.com/events/events-140068/",
+    "crawledAt": "2026-10-01",
+    "featured": false,
+    "endDate": "2026-11-23",
+    "venue": "福山市南部・沼隈半島",
+    "organizer": "084-926-2649 事務局：公益社団法人 福山観光コンベンション協会"
   },
   {
     "id": "2026-fukuyama-oktoberfest",
