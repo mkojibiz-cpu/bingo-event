@@ -1,26 +1,8 @@
 /* 自動生成ファイル — 直接編集しないでください。
- * 生成: crawler/run.js   最終生成: 2026-10-12T00:15:01.784Z
+ * 生成: crawler/run.js   最終生成: 2026-10-13T02:26:05.720Z
  * 追加・修正・固定表示・除外は data/manual.json で行います。
  */
 window.EVENTS = [
-  {
-    "id": "2026-fuchuyaki-grand-prix",
-    "name": "府中焼きグランプリ",
-    "area": "府中",
-    "date": "2026-09-13",
-    "dateText": "2026年9月13日(日)",
-    "image": "",
-    "summary": "ミンチ肉と青ねぎが特徴の「府中焼き」名店が一堂に。",
-    "description": "そば肉玉にミンチ肉を使い、豚バラの代わりにコクと香ばしさを出す府中焼き。市内の飲食店が出店し、来場者の投票でその年のグランプリを決めます。あわせて備後地方のご当地グルメブースも並びます。",
-    "venue": "府中市 目崎会館前 広場",
-    "address": "広島県府中市目崎町",
-    "time": "10:00〜16:00（売り切れ次第終了）",
-    "fee": "入場無料（飲食は有料）",
-    "organizer": "備後府中焼きを広める会",
-    "sourceUrl": "https://example.com/fuchu/fuchuyaki-gp",
-    "crawledAt": "2026-09-02",
-    "featured": false
-  },
   {
     "id": "2026-fukuyama-intl-music-festival",
     "name": "ばらのまち福山国際音楽祭2026",
