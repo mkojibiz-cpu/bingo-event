@@ -1,5 +1,5 @@
 /* 自動生成ファイル — 直接編集しないでください。
- * 生成: crawler/run.js   最終生成: 2026-10-31T23:57:40.206Z
+ * 生成: crawler/run.js   最終生成: 2026-11-02T00:17:40.661Z
  * 追加・修正・固定表示・除外は data/manual.json で行います。
  */
 window.EVENTS = [
@@ -18,42 +18,6 @@ window.EVENTS = [
     "endDate": "2026-11-23",
     "venue": "福山市南部・沼隈半島",
     "organizer": "084-926-2649 事務局：公益社団法人 福山観光コンベンション協会"
-  },
-  {
-    "id": "2026-fukuyama-oktoberfest",
-    "name": "福山オクトーバーフェスト2026",
-    "area": "福山",
-    "date": "2026-10-03",
-    "dateText": "2026年10月3日(土)〜12日(月・祝)",
-    "image": "",
-    "summary": "中央公園にビアテントが並ぶ10日間のドイツビール祭。",
-    "description": "本場ドイツの醸造所のビールと料理、ブラスバンドの生演奏を楽しめる屋外イベント。中央公園に大型テントを設営し、期間中は毎日開催。フードのみの利用も可能です。",
-    "venue": "福山市中央公園",
-    "address": "広島県福山市霞町1丁目10-1",
-    "time": "平日16:00〜21:00 / 土日祝12:00〜21:00",
-    "fee": "入場無料（飲食は有料）",
-    "organizer": "福山オクトーバーフェスト実行委員会",
-    "sourceUrl": "https://example.com/fukuyama/oktoberfest",
-    "crawledAt": "2026-08-28",
-    "featured": false
-  },
-  {
-    "id": "2026-onomichi-akari-matsuri",
-    "name": "尾道灯りまつり",
-    "area": "尾道",
-    "date": "2026-10-03",
-    "dateText": "2026年10月3日(土)",
-    "image": "",
-    "summary": "約3万個のぼんぼりが坂の町と参道を照らす一夜。",
-    "description": "千光寺山ロープウェイ乗り場から各寺社をつなぐ「古寺めぐりコース」を中心に、市民が手作りしたぼんぼりを並べる灯りの祭典。商店街ではライブや夜店も開かれます。",
-    "venue": "尾道市街地・千光寺参道 ほか",
-    "address": "広島県尾道市長江1丁目",
-    "time": "18:00〜21:00",
-    "fee": "無料",
-    "organizer": "尾道灯りまつり実行委員会",
-    "sourceUrl": "https://example.com/onomichi/akari-matsuri",
-    "crawledAt": "2026-08-26",
-    "featured": false
   },
   {
     "id": "2026-kasaoka-islands-art-fes",
