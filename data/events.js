@@ -1,5 +1,5 @@
 /* 自動生成ファイル — 直接編集しないでください。
- * 生成: crawler/run.js   最終生成: 2026-11-08T00:13:43.773Z
+ * 生成: crawler/run.js   最終生成: 2026-11-09T00:34:53.944Z
  * 追加・修正・固定表示・除外は data/manual.json で行います。
  */
 window.EVENTS = [
@@ -18,24 +18,6 @@ window.EVENTS = [
     "endDate": "2026-11-23",
     "venue": "福山市南部・沼隈半島",
     "organizer": "084-926-2649 事務局：公益社団法人 福山観光コンベンション協会"
-  },
-  {
-    "id": "2026-kasaoka-islands-art-fes",
-    "name": "笠岡諸島 アートフェスティバル",
-    "area": "笠岡",
-    "date": "2026-10-10",
-    "dateText": "2026年10月10日(土)〜11月8日(日)",
-    "image": "",
-    "summary": "白石島・北木島など離島を舞台にした現代アートの回遊展。",
-    "description": "笠岡諸島の空き家や旧school、石切場跡などを会場に、国内外の作家が滞在制作した作品を展示。定期船とレンタサイクルで島をめぐるスタンプラリー形式で、島の食を楽しむツアーも設定されます。",
-    "venue": "白石島・北木島・真鍋島 ほか",
-    "address": "岡山県笠岡市（笠岡港発着）",
-    "time": "9:00〜16:30（船の時刻に準ずる）",
-    "fee": "パスポート 2,000円（船賃別）",
-    "organizer": "笠岡諸島アートフェス実行委員会",
-    "sourceUrl": "https://example.com/kasaoka/islands-art",
-    "crawledAt": "2026-08-27",
-    "featured": false
   },
   {
     "id": "2026-renjuku-autumn-open",
