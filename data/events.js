@@ -1,5 +1,5 @@
 /* 自動生成ファイル — 直接編集しないでください。
- * 生成: crawler/run.js   最終生成: 2026-11-16T00:47:19.069Z
+ * 生成: crawler/run.js   最終生成: 2026-11-17T03:26:07.925Z
  * 追加・修正・固定表示・除外は data/manual.json で行います。
  */
 window.EVENTS = [
@@ -18,24 +18,6 @@ window.EVENTS = [
     "endDate": "2026-11-23",
     "venue": "福山市南部・沼隈半島",
     "organizer": "084-926-2649 事務局：公益社団法人 福山観光コンベンション協会"
-  },
-  {
-    "id": "2026-renjuku-autumn-open",
-    "name": "廉塾 秋の特別公開",
-    "area": "神辺",
-    "date": "2026-10-18",
-    "dateText": "2026年10月18日(日)",
-    "image": "",
-    "summary": "菅茶山が開いた私塾「廉塾」の講堂・寮舎を特別公開。",
-    "description": "江戸後期の儒学者・菅茶山が神辺に開いた廉塾（国特別史跡）。ふだん非公開の講堂や寮舎の内部を公開し、地元ガイドによる解説や、漢詩の朗読・書のワークショップが行われます。",
-    "venue": "廉塾ならびに菅茶山旧宅",
-    "address": "広島県福山市神辺町川北640-1",
-    "time": "10:00〜15:30",
-    "fee": "無料",
-    "organizer": "神辺文化財協会",
-    "sourceUrl": "https://example.com/kannabe/renjuku-open",
-    "crawledAt": "2026-08-21",
-    "featured": false
   },
   {
     "id": "2026-tomo-yatai-mura-autumn",
